@@ -64,7 +64,7 @@ bool cudaNoiseGene(float *noise_I, float *noise_Q, size_t length, float mean, fl
 }
 
 bool cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q,float fs, float time_spend, 
-	unsigned int path_num, float fd_max, float delta_omega){
+	float power_avg, unsigned int path_num, float fd_max, float delta_omega){
 	bool isSucceed = true;
 	cudaError_t cudaStatus;
 	float *dev_omega_n_I = NULL, 
@@ -172,7 +172,7 @@ bool cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q,float fs, float time_sp
 				blockNum / gridNum;
 		}
 		noiseSoSSum<<<blockNum, threadNum >>>(dev_cos_value, dev_sin_value, pitch / sizeof(float),
-			col_num, blockNum2D.y, sqrtf(1.0/path_num));
+			col_num, blockNum2D.y, sqrtf(power_avg / path_num));
 		cudaStatus = cudaGetLastError();
 		if (cudaStatus != cudaSuccess) {
 			throw false;

@@ -15,16 +15,16 @@ int main()
 	valarray<valarray<float>> noise(valarray<float>(len), 2);
 
 	start = clock();
-	isSucceed = cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend);
+	isSucceed = cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend, 2);
 	stop = clock();
 
 	if (isSucceed){
-		//FILE *fp = fopen("F:/SigalHu/UAVsSystem/Matlab/noise.bin", "wb");
-		//if (fp){
-		//	fwrite(&noise[0][0], sizeof(float), noise[0].size(), fp);
-		//	fwrite(&noise[1][0], sizeof(float), noise[1].size(), fp);
-		//	fclose(fp);
-		//}
+		FILE *fp = fopen("F:/SigalHu/UAVsSystem/Matlab/noise.bin", "wb");
+		if (fp){
+			fwrite(&noise[0][0], sizeof(float), noise[0].size(), fp);
+			fwrite(&noise[1][0], sizeof(float), noise[1].size(), fp);
+			fclose(fp);
+		}
 
 		//for (valarray<float> &ii : noise){
 		//	for (float &jj : ii){
