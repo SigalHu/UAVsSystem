@@ -15,7 +15,7 @@ int main()
 	valarray<valarray<float>> noise(valarray<float>(len), 2);
 
 	start = clock();
-	isSucceed = cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend, 2);
+	isSucceed = cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend, 1, 3);
 	stop = clock();
 
 	if (isSucceed){
