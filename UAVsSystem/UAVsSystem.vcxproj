@@ -155,6 +155,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <CudaCompile Include="CudaAlgorithmUtils.cu" />
     <CudaCompile Include="CudaCommonUtils.cu" />
+    <CudaCompile Include="CudaCoreUtils.cu" />
     <CudaCompile Include="CudaUtils.cu" />
     <CudaCompile Include="dev_noise.cu" />
   </ItemGroup>
@@ -164,9 +165,11 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <ClInclude Include="CudaAlgorithmUtils.h" />
     <ClInclude Include="CudaCommonUtils.h" />
+    <ClInclude Include="CudaCoreUtils.h" />
     <ClInclude Include="CudaUtils.h" />
-    <ClInclude Include="CudaUtilsDeclaration.h" />
+    <ClInclude Include="UtilsDeclaration.h" />
     <ClInclude Include="dev_noise.cuh" />
+    <ClInclude Include="FrequencyUnit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

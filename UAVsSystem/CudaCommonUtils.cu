@@ -1,5 +1,25 @@
 #include "CudaCommonUtils.h"
 
+bool CudaCommonUtils::randCreateGenerator(curandGenerator_t *generator, curandRngType_t rng_type){
+	if (CURAND_STATUS_SUCCESS != curandCreateGenerator(generator, rng_type))
+		return false;
+	return CURAND_STATUS_SUCCESS == curandSetPseudoRandomGeneratorSeed(*generator, time(NULL));
+}
+
+bool CudaCommonUtils::randGenerateNormal(float *outputPtr, size_t n, float mean, float stddev){
+	curandGenerator_t generator;
+	if (!randCreateGenerator(&generator, CURAND_RNG_PSEUDO_DEFAULT))
+		return false;
+	return CURAND_STATUS_SUCCESS == curandGenerateNormal(generator, outputPtr, n, mean, stddev);
+}
+
+bool CudaCommonUtils::randGenerateUniform(float *outputPtr, size_t num){
+	curandGenerator_t generator;
+	if (!randCreateGenerator(&generator, CURAND_RNG_PSEUDO_DEFAULT))
+		return false;
+	return CURAND_STATUS_SUCCESS == curandGenerateUniform(generator, outputPtr, num);
+}
+
 bool CudaCommonUtils::cudaNoiseGene(float *noise_I, float *noise_Q, size_t length, float mean, float stddev){
 	bool isSucceed = true;
 	cudaError_t cudaStatus;

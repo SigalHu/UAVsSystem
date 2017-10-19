@@ -2,40 +2,58 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <CudaCompile Include="CudaCommonUtils.cu">
-      <Filter>cuda-utils</Filter>
+      <Filter>utils\cuda</Filter>
     </CudaCompile>
     <CudaCompile Include="CudaAlgorithmUtils.cu">
-      <Filter>cuda-utils</Filter>
+      <Filter>utils\cuda</Filter>
     </CudaCompile>
     <CudaCompile Include="CudaUtils.cu">
-      <Filter>cuda-utils</Filter>
+      <Filter>utils\cuda</Filter>
     </CudaCompile>
     <CudaCompile Include="dev_noise.cu">
-      <Filter>cuda-api</Filter>
+      <Filter>api\cuda</Filter>
+    </CudaCompile>
+    <CudaCompile Include="CudaCoreUtils.cu">
+      <Filter>utils\cuda</Filter>
     </CudaCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dev_noise.cuh">
-      <Filter>cuda-api</Filter>
+      <Filter>api\cuda</Filter>
     </ClInclude>
     <ClInclude Include="CudaCommonUtils.h">
-      <Filter>cuda-utils</Filter>
+      <Filter>utils\cuda</Filter>
     </ClInclude>
     <ClInclude Include="CudaAlgorithmUtils.h">
-      <Filter>cuda-utils</Filter>
+      <Filter>utils\cuda</Filter>
     </ClInclude>
     <ClInclude Include="CudaUtils.h">
-      <Filter>cuda-utils</Filter>
+      <Filter>utils\cuda</Filter>
     </ClInclude>
-    <ClInclude Include="CudaUtilsDeclaration.h">
-      <Filter>cuda-utils</Filter>
+    <ClInclude Include="FrequencyUnit.h">
+      <Filter>utils\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilsDeclaration.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaCoreUtils.h">
+      <Filter>utils\cuda</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="cuda-utils">
+    <Filter Include="utils">
+      <UniqueIdentifier>{a1791d45-d96a-43c2-b7e6-5031cb5b663d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\cuda">
       <UniqueIdentifier>{73f5552c-99e3-4b16-9fe5-3d20b800a172}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cuda-api">
+    <Filter Include="utils\algorithm">
+      <UniqueIdentifier>{8b037254-cede-4960-9dd8-a7963a4fa634}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="api">
+      <UniqueIdentifier>{1ba57b5a-19a4-4338-8be1-bfd7064febcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="api\cuda">
       <UniqueIdentifier>{5d24fc17-e80f-491c-89db-8cad5f54754c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

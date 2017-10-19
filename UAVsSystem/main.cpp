@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <time.h>
 #include <valarray>
-#include "CudaUtilsDeclaration.h"
+#include "UtilsDeclaration.h"
 
 using namespace std;
 
