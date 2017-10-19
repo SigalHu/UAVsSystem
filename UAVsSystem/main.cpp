@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <time.h>
 #include <valarray>
-#include "noise.h"
+#include "CudaUtilsDeclaration.h"
 
 using namespace std;
 
@@ -10,12 +10,12 @@ int main()
 	clock_t start, stop;
 	bool isSucceed;
 	const float fs = pow(2,10);
-	const float time_spend = pow(2,16);
+	const float time_spend = pow(2,10);
 	const unsigned int len = (unsigned int)(fs*time_spend);
 	valarray<valarray<float>> noise(valarray<float>(len), 2);
 
 	start = clock();
-	isSucceed = cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend, 2);
+	isSucceed = CudaAlgorithmUtils::cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend, 2);
 	stop = clock();
 
 	if (isSucceed){
@@ -42,7 +42,7 @@ int main()
 	cin.get();
 
 	start = clock();
-	isSucceed = cudaNoiseGene(&noise[0][0], &noise[1][0], noise[0].size(), 0, 1);
+	isSucceed = CudaCommonUtils::cudaNoiseGene(&noise[0][0], &noise[1][0], noise[0].size(), 0, 1);
 	stop = clock();
 
 	if (isSucceed){

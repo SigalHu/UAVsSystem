@@ -1,74 +1,11 @@
-﻿
-#include "dev_noise.cuh"
+#include "CudaAlgorithmUtils.h"
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include <time.h>
-
-bool cudaNoiseGene(float *noise_I, float *noise_Q, size_t length, float mean, float stddev){
-	bool isSucceed = true;
-	cudaError_t cudaStatus;
-	float *dev_rand = NULL;
-	
-	try{
-		curandGenerator_t gen;
-		curandStatus_t cuRandStatus;
-
-		cudaStatus = cudaSetDevice(0);
-		if (cudaStatus != cudaSuccess) {
-			throw false;
-		}
-
-		// hu 分配空间
-		cudaStatus = cudaMalloc((void **)&dev_rand, 2 * length*sizeof(float));
-		if (cudaStatus != cudaSuccess) {
-			throw false;
-		}
-
-		cuRandStatus = curandCreateGenerator(&gen, CURAND_RNG_PSEUDO_DEFAULT);
-		if (cuRandStatus != CURAND_STATUS_SUCCESS){
-			throw false;
-		}
-
-		cuRandStatus = curandSetPseudoRandomGeneratorSeed(gen, time(NULL));
-		if (cuRandStatus != CURAND_STATUS_SUCCESS){
-			throw false;
-		}
-
-		cuRandStatus = curandGenerateNormal(gen, dev_rand, 2 * length, mean, stddev);
-		if (cuRandStatus != CURAND_STATUS_SUCCESS){
-			throw false;
-		}
-
-		cudaStatus = cudaMemcpy((void *)noise_I, (void *)dev_rand, length*sizeof(float), cudaMemcpyDeviceToHost);
-		if (cudaStatus != cudaSuccess) {
-			throw false;
-		}
-		cudaStatus = cudaMemcpy((void *)noise_Q, (void *)(dev_rand + length), length*sizeof(float), cudaMemcpyDeviceToHost);
-		if (cudaStatus != cudaSuccess) {
-			throw false;
-		}
-	}
-	catch(bool &msg){
-		isSucceed = msg;
-	}
-
-	if (dev_rand)
-		cudaFree(dev_rand);
-
-	cudaStatus = cudaDeviceReset();
-	if (cudaStatus != cudaSuccess) {
-		return false;
-	}
-	return isSucceed;
-}
-
-bool cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q,float fs, float time_spend, 
+bool CudaAlgorithmUtils::cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q, float fs, float time_spend,
 	float power_avg, unsigned int path_num, float fd_max, float delta_omega){
 	bool isSucceed = true;
 	cudaError_t cudaStatus;
-	float *dev_omega_n_I = NULL, 
-		*dev_omega_n_Q = NULL, 
+	float *dev_omega_n_I = NULL,
+		*dev_omega_n_Q = NULL,
 		*dev_phi_n = NULL,
 		*dev_cos_value = NULL,
 		*dev_sin_value = NULL;
@@ -100,14 +37,14 @@ bool cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q,float fs, float time_sp
 			throw false;
 		}
 
-		noiseOmegaCulc<<<blockNum, threadNum>>>(dev_omega_n_I, dev_omega_n_Q, path_num,
+		noiseOmegaCulc << <blockNum, threadNum >> >(dev_omega_n_I, dev_omega_n_Q, path_num,
 			2 * M_PI*fd_max, (2 * M_PI - 2 * M_PI / (path_num + 1)) / (path_num - 1), delta_omega);
 		cudaStatus = cudaGetLastError();
 		if (cudaStatus != cudaSuccess) {
 			throw false;
 		}
 
-		cudaStatus = cudaMalloc((void **)&dev_phi_n, 2*path_num*sizeof(float));
+		cudaStatus = cudaMalloc((void **)&dev_phi_n, 2 * path_num*sizeof(float));
 		if (cudaStatus != cudaSuccess) {
 			throw false;
 		}
@@ -127,8 +64,8 @@ bool cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q,float fs, float time_sp
 
 		threadNum2D.x = BLOCK_DIM_X;
 		threadNum2D.y = BLOCK_DIM_Y;
-		blockNum2D.x = col_num % threadNum2D.x ? 
-			col_num / threadNum2D.x + 1 : 
+		blockNum2D.x = col_num % threadNum2D.x ?
+			col_num / threadNum2D.x + 1 :
 			col_num / threadNum2D.x;
 		if (blockNum2D.x > GRID_DIM_X){
 			unsigned int gridNum = blockNum2D.x % GRID_DIM_X ?
@@ -152,7 +89,7 @@ bool cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q,float fs, float time_sp
 		if (cudaStatus != cudaSuccess) {
 			throw false;
 		}
-		noiseSoSCulc<<<blockNum2D, threadNum2D>>>(dev_cos_value, dev_sin_value, pitch / sizeof(float), 
+		noiseSoSCulc << <blockNum2D, threadNum2D >> >(dev_cos_value, dev_sin_value, pitch / sizeof(float),
 			col_num, path_num, 1 / fs, dev_omega_n_I, dev_omega_n_Q, dev_phi_n);
 		cudaStatus = cudaGetLastError();
 		if (cudaStatus != cudaSuccess) {
@@ -171,7 +108,7 @@ bool cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q,float fs, float time_sp
 				blockNum / gridNum + 1 :
 				blockNum / gridNum;
 		}
-		noiseSoSSum<<<blockNum, threadNum >>>(dev_cos_value, dev_sin_value, pitch / sizeof(float),
+		noiseSoSSum << <blockNum, threadNum >> >(dev_cos_value, dev_sin_value, pitch / sizeof(float),
 			col_num, blockNum2D.y, sqrtf(power_avg / path_num));
 		cudaStatus = cudaGetLastError();
 		if (cudaStatus != cudaSuccess) {
@@ -204,7 +141,7 @@ bool cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q,float fs, float time_sp
 
 	cudaStatus = cudaDeviceReset();
 	if (cudaStatus != cudaSuccess) {
-	    return false;
+		return false;
 	}
 	return isSucceed;
 }

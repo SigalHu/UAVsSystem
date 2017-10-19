@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CudaCompile Include="CudaCommonUtils.cu">
+      <Filter>cuda-utils</Filter>
+    </CudaCompile>
+    <CudaCompile Include="CudaAlgorithmUtils.cu">
+      <Filter>cuda-utils</Filter>
+    </CudaCompile>
+    <CudaCompile Include="CudaUtils.cu">
+      <Filter>cuda-utils</Filter>
+    </CudaCompile>
+    <CudaCompile Include="dev_noise.cu">
+      <Filter>cuda-api</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dev_noise.cuh">
+      <Filter>cuda-api</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaCommonUtils.h">
+      <Filter>cuda-utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaAlgorithmUtils.h">
+      <Filter>cuda-utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaUtils.h">
+      <Filter>cuda-utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaUtilsDeclaration.h">
+      <Filter>cuda-utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="cuda-utils">
+      <UniqueIdentifier>{73f5552c-99e3-4b16-9fe5-3d20b800a172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cuda-api">
+      <UniqueIdentifier>{5d24fc17-e80f-491c-89db-8cad5f54754c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+</Project>
