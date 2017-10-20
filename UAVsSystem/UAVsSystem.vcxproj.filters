@@ -39,6 +39,15 @@
     <ClInclude Include="CudaCoreUtils.h">
       <Filter>utils\cuda</Filter>
     </ClInclude>
+    <ClInclude Include="CudaService.h">
+      <Filter>service</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaNoiseService.h">
+      <Filter>service</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceDeclaration.h">
+      <Filter>service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">
@@ -56,8 +65,17 @@
     <Filter Include="api\cuda">
       <UniqueIdentifier>{5d24fc17-e80f-491c-89db-8cad5f54754c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="service">
+      <UniqueIdentifier>{98317e9e-4f63-4d3e-9dc6-9beba693cd8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="CudaService.cpp">
+      <Filter>service</Filter>
+    </ClCompile>
+    <ClCompile Include="CudaNoiseService.cpp">
+      <Filter>service</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

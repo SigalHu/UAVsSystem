@@ -2,12 +2,15 @@
 #include <time.h>
 #include <valarray>
 #include "UtilsDeclaration.h"
+#include "ServiceDeclaration.h"
 
 using namespace std;
 
 int main()
 {
-	clock_t start, stop;
+	CudaNoiseService service(1000,1000);
+	cout << service.toString() << endl;
+/*	clock_t start, stop;
 	bool isSucceed;
 	const float fs = pow(2,10);
 	const float time_spend = pow(2,10);
@@ -65,7 +68,7 @@ int main()
 		cout << "调用失败！" << endl;
 	}
 
-	cout << "所花时间：" << stop - start << "ms" <<endl;
+	cout << "所花时间：" << stop - start << "ms" <<endl;*/
 	cin.get();
 
 	return 0;

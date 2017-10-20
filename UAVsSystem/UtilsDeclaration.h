@@ -5,3 +5,5 @@
 #include "CudaCoreUtils.h"
 
 #include "FrequencyUnit.h"
+
+#define varName(x) #x

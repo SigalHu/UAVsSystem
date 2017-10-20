@@ -160,13 +160,18 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <CudaCompile Include="dev_noise.cu" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CudaNoiseService.cpp" />
+    <ClCompile Include="CudaService.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CudaAlgorithmUtils.h" />
     <ClInclude Include="CudaCommonUtils.h" />
     <ClInclude Include="CudaCoreUtils.h" />
+    <ClInclude Include="CudaNoiseService.h" />
+    <ClInclude Include="CudaService.h" />
     <ClInclude Include="CudaUtils.h" />
+    <ClInclude Include="ServiceDeclaration.h" />
     <ClInclude Include="UtilsDeclaration.h" />
     <ClInclude Include="dev_noise.cuh" />
     <ClInclude Include="FrequencyUnit.h" />

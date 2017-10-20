@@ -1,5 +1,21 @@
 #include "CudaAlgorithmUtils.h"
 
+void CudaAlgorithmUtils::noiseOmegaCulc(float *dev_omega_n_I, float *dev_omega_n_Q, unsigned int tid_max,
+	float omega_amp, float delta_alpha, float delta_omega){
+	//cudaNoiseOmegaCulc(dev_omega_n_I, dev_omega_n_Q, tid_max, omega_amp, delta_alpha, delta_omega);
+}
+
+void CudaAlgorithmUtils::noiseSoSCulc(float *dev_cos_value, float *dev_sin_value,
+	unsigned int pitch_width, unsigned int width, unsigned int heigth, float delta_t,
+	float *dev_omega_n_I, float *dev_omega_n_Q, float *dev_phi_n){
+	//cudaNoiseSoSCulc(dev_cos_value, dev_sin_value, pitch_width, width, heigth, delta_t, dev_omega_n_I, dev_omega_n_Q, dev_phi_n);
+}
+
+void CudaAlgorithmUtils::noiseSoSSum(float *dev_cos_value, float *dev_sin_value,
+	unsigned int pitch_width, unsigned int width, unsigned int heigth, float sum_amp){
+	//cudaNoiseSoSSum(dev_cos_value, dev_sin_value, pitch_width, width, heigth, sum_amp);
+}
+
 bool CudaAlgorithmUtils::cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q, float fs, float time_spend,
 	float power_avg, unsigned int path_num, float fd_max, float delta_omega){
 	bool isSucceed = true;
@@ -37,7 +53,7 @@ bool CudaAlgorithmUtils::cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q, fl
 			throw false;
 		}
 
-		noiseOmegaCulc << <blockNum, threadNum >> >(dev_omega_n_I, dev_omega_n_Q, path_num,
+		cudaNoiseOmegaCulc << <blockNum, threadNum >> >(dev_omega_n_I, dev_omega_n_Q, path_num,
 			2 * M_PI*fd_max, (2 * M_PI - 2 * M_PI / (path_num + 1)) / (path_num - 1), delta_omega);
 		cudaStatus = cudaGetLastError();
 		if (cudaStatus != cudaSuccess) {
@@ -89,7 +105,7 @@ bool CudaAlgorithmUtils::cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q, fl
 		if (cudaStatus != cudaSuccess) {
 			throw false;
 		}
-		noiseSoSCulc << <blockNum2D, threadNum2D >> >(dev_cos_value, dev_sin_value, pitch / sizeof(float),
+		cudaNoiseSoSCulc << <blockNum2D, threadNum2D >> >(dev_cos_value, dev_sin_value, pitch / sizeof(float),
 			col_num, path_num, 1 / fs, dev_omega_n_I, dev_omega_n_Q, dev_phi_n);
 		cudaStatus = cudaGetLastError();
 		if (cudaStatus != cudaSuccess) {
@@ -108,7 +124,7 @@ bool CudaAlgorithmUtils::cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q, fl
 				blockNum / gridNum + 1 :
 				blockNum / gridNum;
 		}
-		noiseSoSSum << <blockNum, threadNum >> >(dev_cos_value, dev_sin_value, pitch / sizeof(float),
+		cudaNoiseSoSSum << <blockNum, threadNum >> >(dev_cos_value, dev_sin_value, pitch / sizeof(float),
 			col_num, blockNum2D.y, sqrtf(power_avg / path_num));
 		cudaStatus = cudaGetLastError();
 		if (cudaStatus != cudaSuccess) {
