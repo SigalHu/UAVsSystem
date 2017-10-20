@@ -6,7 +6,7 @@
 #define BLOCK_DIM_Y 8
 #define GRID_DIM_X 65535
 
-class CudaAlgorithmUtils :public CudaUtils{
+class CudaAlgorithmUtils :protected CudaUtils{
 public:
 	static void noiseOmegaCulc(float *dev_omega_n_I, float *dev_omega_n_Q, unsigned int tid_max,
 		float omega_amp, float delta_alpha, float delta_omega);

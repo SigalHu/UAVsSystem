@@ -2,7 +2,7 @@
 
 #include "CudaUtils.h"
 
-class CudaCommonUtils :public CudaUtils{
+class CudaCommonUtils :protected CudaUtils{
 private:
 	static bool randCreateGenerator(curandGenerator_t *generator, curandRngType_t rng_type);
 public:

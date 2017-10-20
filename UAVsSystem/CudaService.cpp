@@ -1,14 +1,25 @@
 #include "CudaService.h"
 
-CudaService::CudaService(float fs, float timeSpend){
+CudaService::CudaService(int deviceId){
+	setDeviceId(deviceId);
+	setFs(DEFAULT_FS);
+	setTimeSpend(DEFAULT_TIME_SPEND);
+	setPathNum(MIN_PATH_NUM);
+	setMaxFd(DEFAULT_MAX_FD);
+	setDeltaOmega(DEFAULT_DELTA_OMEGA);
+}
+
+CudaService::CudaService(int deviceId, float fs, float timeSpend){
+	setDeviceId(deviceId);
 	setFs(fs);
 	setTimeSpend(timeSpend);
 	setPathNum(MIN_PATH_NUM);
-	setDeltaOmega(0);
-	setMaxFd(50);
+	setMaxFd(DEFAULT_MAX_FD);
+	setDeltaOmega(DEFAULT_DELTA_OMEGA);
 }
 
-CudaService::CudaService(unsigned int pathNum, float fs, float timeSpend, float maxFd, float deltaOmega){
+CudaService::CudaService(int deviceId, unsigned int pathNum, float fs, float timeSpend, float maxFd, float deltaOmega){
+	setDeviceId(deviceId);
 	setFs(fs);
 	setTimeSpend(timeSpend);
 	setPathNum(pathNum);
@@ -17,6 +28,14 @@ CudaService::CudaService(unsigned int pathNum, float fs, float timeSpend, float 
 }
 
 CudaService::~CudaService(){
+}
+
+void CudaService::setDeviceId(int deviceId){
+	this->deviceId = deviceId;
+}
+
+int CudaService::getDeviceId(){
+	return this->deviceId;
 }
 
 unsigned int CudaService::setPathNum(unsigned int pathNum){
@@ -75,6 +94,8 @@ string CudaService::toString(){
 	ostringstream ss;
 	ss << typeid(*this).name();
 	ss << "{";
+	ss << varName(deviceId) << "=" << getDeviceId();
+	ss << ",";
 	ss << varName(pathNum) << "=" << getPathNum();
 	ss << ",";
 	ss << varName(fs) << "=" << getFs();

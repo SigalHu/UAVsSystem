@@ -8,8 +8,12 @@ using namespace std;
 
 int main()
 {
-	CudaNoiseService service(1000,1000);
-	cout << service.toString() << endl;
+//	CudaNoiseService service(1000,1000);
+//	cout << service.toString() << endl;
+
+	CudaCoreUtils::printDeviceProperties();
+
+
 /*	clock_t start, stop;
 	bool isSucceed;
 	const float fs = pow(2,10);

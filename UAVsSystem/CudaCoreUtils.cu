@@ -1,13 +1,5 @@
 #include "CudaCoreUtils.h"
 
-bool CudaCoreUtils::setDevice(int device){
-	return cudaSuccess == cudaSetDevice(device);
-}
-
-bool CudaCoreUtils::resetDevice(){
-	return cudaSuccess == cudaDeviceReset();
-}
-
 bool CudaCoreUtils::malloc(void **devPtr, size_t size){
 	return cudaSuccess == cudaMalloc(devPtr, size);
 }
