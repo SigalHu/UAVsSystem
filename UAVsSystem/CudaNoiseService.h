@@ -8,15 +8,13 @@ private:
 
 	float noisePower;
 public:
-	CudaNoiseService(int deviceId);
-	CudaNoiseService(int deviceId, float fs, float timeSpend);
-	CudaNoiseService(int deviceId, unsigned int pathNum, float fs, float timeSpend, float maxFd, float deltaOmega);
-	CudaNoiseService(int deviceId, unsigned int pathNum, float fs, float timeSpend, float maxFd, float deltaOmega, float noisePower);
+	CudaNoiseService(const int &deviceId);
+	CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend);
+	CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega);
+	CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega, const float &noisePower);
 	~CudaNoiseService();
 
-	void setNoisePower(float noisePower);
-	float getNoisePower();
-	string toString();
+	void setNoisePower(const float &noisePower);
+	float getNoisePower() const;
+	string toString() const;
 };
-
-const float CudaNoiseService::DEFAULT_NOISE_POWER = 1;

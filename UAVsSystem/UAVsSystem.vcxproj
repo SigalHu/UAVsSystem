@@ -165,6 +165,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComplexArray.h" />
     <ClInclude Include="CudaAlgorithmUtils.h" />
     <ClInclude Include="CudaCommonUtils.h" />
     <ClInclude Include="CudaCoreUtils.h" />

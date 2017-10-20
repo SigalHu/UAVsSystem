@@ -1,7 +1,9 @@
 #include "CudaAlgorithmUtils.h"
 
-void CudaAlgorithmUtils::noiseOmegaCulc(float *dev_omega_n_I, float *dev_omega_n_Q, unsigned int tid_max,
-	float omega_amp, float delta_alpha, float delta_omega){
+template<size_t _Size>
+void CudaAlgorithmUtils::noiseOmegaCulc(ComplexArray<float, _Size> &devOmega, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega){
+	size_t blockNum, threadNum;
+
 	//cudaNoiseOmegaCulc(dev_omega_n_I, dev_omega_n_Q, tid_max, omega_amp, delta_alpha, delta_omega);
 }
 

@@ -1,37 +1,39 @@
 #include "CudaNoiseService.h"
 
-CudaNoiseService::CudaNoiseService(int deviceId)
+const float CudaNoiseService::DEFAULT_NOISE_POWER = 1;
+
+CudaNoiseService::CudaNoiseService(const int &deviceId)
 :CudaService(deviceId){
 	setNoisePower(DEFAULT_NOISE_POWER);
 }
 
-CudaNoiseService::CudaNoiseService(int deviceId, float fs, float timeSpend)
+CudaNoiseService::CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend)
 :CudaService(deviceId, fs, timeSpend){
 	setNoisePower(DEFAULT_NOISE_POWER);
 }
 
-CudaNoiseService::CudaNoiseService(int deviceId, unsigned int pathNum, float fs, float timeSpend, float maxFd, float deltaOmega)
-: CudaService(deviceId, pathNum, fs, timeSpend, maxFd, deltaOmega){
+CudaNoiseService::CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega)
+: CudaService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
 	setNoisePower(DEFAULT_NOISE_POWER);
 }
 
-CudaNoiseService::CudaNoiseService(int deviceId, unsigned int pathNum, float fs, float timeSpend, float maxFd, float deltaOmega, float noisePower)
-: CudaService(deviceId, pathNum, fs, timeSpend, maxFd, deltaOmega){
+CudaNoiseService::CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega, const float &noisePower)
+: CudaService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
 	setNoisePower(noisePower);
 }
 
 CudaNoiseService::~CudaNoiseService(){
 }
 
-void CudaNoiseService::setNoisePower(float noisePower){
+void CudaNoiseService::setNoisePower(const float &noisePower){
 	this->noisePower = noisePower;
 }
 
-float CudaNoiseService::getNoisePower(){
+float CudaNoiseService::getNoisePower() const{
 	return this->noisePower;
 }
 
-string CudaNoiseService::toString(){
+string CudaNoiseService::toString() const{
 	string str;
 	ostringstream ss;
 	ss << typeid(*this).name();

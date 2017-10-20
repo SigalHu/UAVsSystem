@@ -48,6 +48,9 @@
     <ClInclude Include="ServiceDeclaration.h">
       <Filter>service</Filter>
     </ClInclude>
+    <ClInclude Include="ComplexArray.h">
+      <Filter>utils\algorithm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">

@@ -4,15 +4,20 @@
 #include "UtilsDeclaration.h"
 #include "ServiceDeclaration.h"
 
-using namespace std;
-
 int main()
 {
 //	CudaNoiseService service(1000,1000);
 //	cout << service.toString() << endl;
 
-	CudaCoreUtils::printDeviceProperties();
-
+	/*
+	valarray<int> a(10);
+	for (int &aa : a){
+		cout << aa << endl;
+	}
+	a -= 1;
+	for (int &aa : a){
+		cout << aa << endl;
+	}*/
 
 /*	clock_t start, stop;
 	bool isSucceed;
