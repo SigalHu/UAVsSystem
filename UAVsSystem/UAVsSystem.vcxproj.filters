@@ -39,12 +39,6 @@
     <ClInclude Include="CudaCoreUtils.h">
       <Filter>utils\cuda</Filter>
     </ClInclude>
-    <ClInclude Include="CudaService.h">
-      <Filter>service</Filter>
-    </ClInclude>
-    <ClInclude Include="CudaNoiseService.h">
-      <Filter>service</Filter>
-    </ClInclude>
     <ClInclude Include="ServiceDeclaration.h">
       <Filter>service</Filter>
     </ClInclude>
@@ -53,6 +47,15 @@
     </ClInclude>
     <ClInclude Include="ComplexRef.h">
       <Filter>utils\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaNoiseService.h">
+      <Filter>service\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaAlgorithmService.h">
+      <Filter>service\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaMemoryService.h">
+      <Filter>service\memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -74,14 +77,20 @@
     <Filter Include="service">
       <UniqueIdentifier>{98317e9e-4f63-4d3e-9dc6-9beba693cd8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="service\algorithm">
+      <UniqueIdentifier>{a9026802-a5cd-46b9-a4d5-588fa93db128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service\memory">
+      <UniqueIdentifier>{a1e33670-fa8d-475c-8807-ea45b4e38a4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="CudaService.cpp">
-      <Filter>service</Filter>
-    </ClCompile>
     <ClCompile Include="CudaNoiseService.cpp">
-      <Filter>service</Filter>
+      <Filter>service\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="CudaAlgorithmService.cpp">
+      <Filter>service\algorithm</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "CudaService.h"
+#include "CudaAlgorithmService.h"
 #include <string>
 #include <sstream>
 
-class CudaNoiseService:public CudaService{
+class CudaNoiseService:public CudaAlgorithmService{
 private:
 	static const float DEFAULT_NOISE_POWER;
 

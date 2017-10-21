@@ -28,45 +28,45 @@ public:
 
 	ComplexRef<_T>& operator[](const size_t& _Off) throw(out_of_range){
 		if (_Off >= _Size)
-			throw out_of_range("越界访问！");
+			throw out_of_range();
 		upCurrentItem.reset(new ComplexRef<_T>(this->realArray[_Off], this->imagArray[_Off]));
 		return (*upCurrentItem);
 	}
 
 	void set(const size_t& index, const complex<_T>& value) throw(out_of_range){
 		if (index >= _Size)
-			throw out_of_range("越界访问！");
+			throw out_of_range();
 		this->realArray[index] = value.real();
 		this->imagArray[index] = value.imag();
 	}
 
 	complex<_T> get(const size_t& index) const throw(out_of_range){
 		if (index >= _Size)
-			throw out_of_range("越界访问！");
+			throw out_of_range();
 		return complex<_T>(this->realArray[index], this->imagArray[index]);
 	}
 
 	void setReal(const size_t& index, const _T &value) throw(out_of_range){
 		if (index >= _Size)
-			throw out_of_range("越界访问！");
+			throw out_of_range();
 		this->realArray[index] = value;
 	}
 
 	_T getReal(const size_t& index) const throw(out_of_range){
 		if (index >= _Size)
-			throw out_of_range("越界访问！");
+			throw out_of_range();
 		return this->realArray[index];
 	}
 
 	void setImag(const size_t& index, const _T &value) throw(out_of_range){
 		if (index >= _Size)
-			throw out_of_range("越界访问！");
+			throw out_of_range();
 		this->imagArray[index] = value;
 	}
 
 	_T getImag(const size_t& index) const throw(out_of_range){
 		if (index >= _Size)
-			throw out_of_range("越界访问！");
+			throw out_of_range();
 		return this->imagArray[index];
 	}
 

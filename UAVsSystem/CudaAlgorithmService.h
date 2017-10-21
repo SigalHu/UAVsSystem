@@ -5,7 +5,7 @@
 #include <sstream>
 using namespace std;
 
-class CudaService{
+class CudaAlgorithmService{
 private:
 	static const unsigned int MIN_PATH_NUM;
 	static const float DEFAULT_FS;
@@ -24,10 +24,10 @@ private:
 private:
 	void setDeviceId(const int &deviceId);
 public:
-	CudaService(const int &deviceId);
-	CudaService(const int &deviceId, const float &fs, const float &timeSpend);
-	CudaService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega);
-	virtual ~CudaService();
+	CudaAlgorithmService(const int &deviceId);
+	CudaAlgorithmService(const int &deviceId, const float &fs, const float &timeSpend);
+	CudaAlgorithmService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega);
+	virtual ~CudaAlgorithmService();
 
 	int getDeviceId() const;
 	unsigned int setPathNum(const unsigned int &pathNum);

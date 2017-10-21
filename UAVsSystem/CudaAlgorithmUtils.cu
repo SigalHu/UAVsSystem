@@ -1,21 +1,48 @@
 #include "CudaAlgorithmUtils.h"
 
 template<size_t _Size>
-void CudaAlgorithmUtils::noiseOmegaCulc(ComplexArray<float, _Size> &devOmega, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega){
-	size_t blockNum, threadNum;
+bool CudaAlgorithmUtils::noiseOmegaCulc(float* const &devOmegaI, float* const &devOmegaQ, const dim3 &blockNum, const dim3 &threadNum,
+	const unsigned int &pathNum, const float &maxFd, const float &deltaOmega) throw(invalid_argument){
+	if (pathNum == 0)
+		throw invalid_argument(string(varName(pathNum)) + " must be larger than 0.");
+	if (devOmegaI == nullptr)
+		throw invalid_argument(string(varName(devOmegaI)) + " can not be nullptr.");
+	if (devOmegaQ == nullptr)
+		throw invalid_argument(string(varName(devOmegaQ)) + " can not be nullptr.");
 
-	//cudaNoiseOmegaCulc(dev_omega_n_I, dev_omega_n_Q, tid_max, omega_amp, delta_alpha, delta_omega);
+	cudaNoiseOmegaCulc << <blockNum, threadNum >> >(devOmegaI, devOmegaQ, pathNum,
+		2 * M_PI*maxFd, (2 * M_PI - 2 * M_PI / (pathNum + 1)) / (pathNum - 1), deltaOmega);
+	return cudaSuccess == cudaGetLastError();
 }
 
-void CudaAlgorithmUtils::noiseSoSCulc(float *dev_cos_value, float *dev_sin_value,
-	unsigned int pitch_width, unsigned int width, unsigned int heigth, float delta_t,
-	float *dev_omega_n_I, float *dev_omega_n_Q, float *dev_phi_n){
-	//cudaNoiseSoSCulc(dev_cos_value, dev_sin_value, pitch_width, width, heigth, delta_t, dev_omega_n_I, dev_omega_n_Q, dev_phi_n);
+bool CudaAlgorithmUtils::noiseSoSCulc(float* const &devCosValue, float* const &devSinValue, const dim3 &blockNum, const dim3 &threadNum,
+	const unsigned int &pitchWidth, const unsigned int &width, const unsigned int &heigth, const float &deltaT,
+	float* const &devOmegaI, float* const &devOmegaQ, float* const &devPhi) throw(invalid_argument){
+	if (devCosValue == nullptr)
+		throw invalid_argument(string(varName(devCosValue)) + " can not be nullptr.");
+	if (devSinValue == nullptr)
+		throw invalid_argument(string(varName(devSinValue)) + " can not be nullptr.");
+	if (devOmegaI == nullptr)
+		throw invalid_argument(string(varName(devOmegaI)) + " can not be nullptr.");
+	if (devOmegaQ == nullptr)
+		throw invalid_argument(string(varName(devOmegaQ)) + " can not be nullptr.");
+	if (devPhi == nullptr)
+		throw invalid_argument(string(varName(devPhi)) + " can not be nullptr.");
+
+	cudaNoiseSoSCulc << <blockNum, threadNum >> >(devCosValue, devSinValue, 
+		pitchWidth, width, heigth, deltaT, devOmegaI, devOmegaQ, devPhi);
+	return cudaSuccess == cudaGetLastError();
 }
 
-void CudaAlgorithmUtils::noiseSoSSum(float *dev_cos_value, float *dev_sin_value,
-	unsigned int pitch_width, unsigned int width, unsigned int heigth, float sum_amp){
-	//cudaNoiseSoSSum(dev_cos_value, dev_sin_value, pitch_width, width, heigth, sum_amp);
+bool CudaAlgorithmUtils::noiseSoSSum(float* const &devCosValue, float* const &devSinValue, const dim3 &blockNum, const dim3 &threadNum,
+	const unsigned int &pitchWidth, const unsigned int &width, const unsigned int &heigth, const float &sumAmp) throw(invalid_argument){
+	if (devCosValue == nullptr)
+		throw invalid_argument(string(varName(devCosValue)) + " can not be nullptr.");
+	if (devSinValue == nullptr)
+		throw invalid_argument(string(varName(devSinValue)) + " can not be nullptr.");
+
+	cudaNoiseSoSSum << <blockNum, threadNum >> >(devCosValue, devSinValue, pitchWidth, width, heigth, sumAmp);
+	return cudaSuccess == cudaGetLastError();
 }
 
 bool CudaAlgorithmUtils::cudaNoiseGeneWithSoS(float *noise_I, float *noise_Q, float fs, float time_spend,

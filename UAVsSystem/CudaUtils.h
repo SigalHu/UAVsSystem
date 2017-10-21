@@ -5,13 +5,14 @@
 #include "curand_kernel.h"
 
 #include "dev_noise.cuh"
-#include "ComplexArray.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <time.h>
 #include <cstdio>
 using namespace std;
+
+#define varName(x) #x
 
 class CudaUtils{
 public:

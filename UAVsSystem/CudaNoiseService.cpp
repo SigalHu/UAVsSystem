@@ -3,22 +3,22 @@
 const float CudaNoiseService::DEFAULT_NOISE_POWER = 1;
 
 CudaNoiseService::CudaNoiseService(const int &deviceId)
-:CudaService(deviceId){
+:CudaAlgorithmService(deviceId){
 	setNoisePower(DEFAULT_NOISE_POWER);
 }
 
 CudaNoiseService::CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend)
-:CudaService(deviceId, fs, timeSpend){
+:CudaAlgorithmService(deviceId, fs, timeSpend){
 	setNoisePower(DEFAULT_NOISE_POWER);
 }
 
 CudaNoiseService::CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega)
-: CudaService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
+: CudaAlgorithmService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
 	setNoisePower(DEFAULT_NOISE_POWER);
 }
 
 CudaNoiseService::CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega, const float &noisePower)
-: CudaService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
+: CudaAlgorithmService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
 	setNoisePower(noisePower);
 }
 
