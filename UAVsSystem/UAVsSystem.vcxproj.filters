@@ -51,6 +51,9 @@
     <ClInclude Include="ComplexArray.h">
       <Filter>utils\algorithm</Filter>
     </ClInclude>
+    <ClInclude Include="ComplexRef.h">
+      <Filter>utils\algorithm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">

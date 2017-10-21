@@ -1,6 +1,8 @@
 #pragma once
 
 #include "CudaService.h"
+#include <string>
+#include <sstream>
 
 class CudaNoiseService:public CudaService{
 private:

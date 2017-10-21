@@ -6,12 +6,11 @@
 
 #include "dev_noise.cuh"
 #include "ComplexArray.h"
+
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <time.h>
 #include <cstdio>
-#include <valarray>
-
 using namespace std;
 
 class CudaUtils{

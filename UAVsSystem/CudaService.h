@@ -1,8 +1,9 @@
 #pragma once
 
+#include "UtilsDeclaration.h"
 #include <string>
 #include <sstream>
-#include "UtilsDeclaration.h"
+using namespace std;
 
 class CudaService{
 private:
