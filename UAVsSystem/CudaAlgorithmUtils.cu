@@ -4,7 +4,7 @@ template<size_t _Size>
 bool CudaAlgorithmUtils::noiseOmegaCulc(float* const &devOmegaI, float* const &devOmegaQ, const dim3 &blockNum, const dim3 &threadNum,
 	const unsigned int &pathNum, const float &maxFd, const float &deltaOmega) throw(invalid_argument){
 	if (pathNum == 0)
-		throw invalid_argument(string(varName(pathNum)) + " must be larger than 0.");
+		throw invalid_argument(string(varName(pathNum)) + " must be greater than 0.");
 	if (devOmegaI == nullptr)
 		throw invalid_argument(string(varName(devOmegaI)) + " can not be nullptr.");
 	if (devOmegaQ == nullptr)

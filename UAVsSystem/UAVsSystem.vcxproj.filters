@@ -16,6 +16,7 @@
     <CudaCompile Include="CudaCoreUtils.cu">
       <Filter>utils\cuda</Filter>
     </CudaCompile>
+    <CudaCompile Include="test.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dev_noise.cuh">
@@ -56,6 +57,9 @@
     </ClInclude>
     <ClInclude Include="CudaMemoryService.h">
       <Filter>service\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaTask.h">
+      <Filter>service\algorithm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

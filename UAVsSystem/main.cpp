@@ -1,12 +1,32 @@
 ﻿#include <iostream>
 #include <time.h>
 #include <valarray>
+#include <string>
 #include "UtilsDeclaration.h"
 #include "ServiceDeclaration.h"
 using namespace std;
 
+
+template<class _T1>
+void call(_T1 cudaTask){
+	static_assert(is_base_of<CudaTask, _T1>::value, "cudaTask must be a subclass of CudaTask.");
+
+	cudaTask();
+}
+
+class CudaAA :public CudaTask{
+public:
+	CudaAA(dim3 a,dim3 b):CudaTask(a,b){}
+
+	void operator()(){
+		cout << "123" << endl;
+	}
+};
+
 int main()
 {
+	call(CudaAA(dim3(1, 1, 1), dim3(1, 1, 1)));
+
 //	CudaNoiseService service(1000,1000);
 //	cout << service.toString() << endl;
 
