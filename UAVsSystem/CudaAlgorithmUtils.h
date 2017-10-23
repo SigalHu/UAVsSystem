@@ -1,12 +1,6 @@
 #pragma once
 
 #include "CudaUtils.h"
-#include <stdexcept>
-using namespace std;
-
-#define BLOCK_DIM_X 32
-#define BLOCK_DIM_Y 8
-#define GRID_DIM_X 65535
 
 class CudaAlgorithmUtils :protected CudaUtils{
 public:

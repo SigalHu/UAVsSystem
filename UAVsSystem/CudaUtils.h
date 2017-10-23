@@ -1,15 +1,12 @@
 #pragma once
 
-#include "cuda_runtime.h"
-#include "device_launch_parameters.h"
-#include "curand_kernel.h"
-
-#include "dev_noise.cuh"
+#include "cuda_task.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <time.h>
 #include <cstdio>
+#include <stdexcept>
 using namespace std;
 
 #define varName(x) #x

@@ -1,53 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CudaCompile Include="CudaCommonUtils.cu">
-      <Filter>utils\cuda</Filter>
-    </CudaCompile>
-    <CudaCompile Include="CudaAlgorithmUtils.cu">
-      <Filter>utils\cuda</Filter>
-    </CudaCompile>
-    <CudaCompile Include="CudaUtils.cu">
-      <Filter>utils\cuda</Filter>
-    </CudaCompile>
     <CudaCompile Include="dev_noise.cu">
-      <Filter>api\cuda</Filter>
-    </CudaCompile>
-    <CudaCompile Include="CudaCoreUtils.cu">
-      <Filter>utils\cuda</Filter>
+      <Filter>cuda\task\api</Filter>
     </CudaCompile>
     <CudaCompile Include="test.cu" />
+    <CudaCompile Include="CudaAlgorithmUtils.cu">
+      <Filter>cuda\utils</Filter>
+    </CudaCompile>
+    <CudaCompile Include="CudaCommonUtils.cu">
+      <Filter>cuda\utils</Filter>
+    </CudaCompile>
+    <CudaCompile Include="CudaCoreUtils.cu">
+      <Filter>cuda\utils</Filter>
+    </CudaCompile>
+    <CudaCompile Include="CudaUtils.cu">
+      <Filter>cuda\utils</Filter>
+    </CudaCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dev_noise.cuh">
-      <Filter>api\cuda</Filter>
-    </ClInclude>
-    <ClInclude Include="CudaCommonUtils.h">
-      <Filter>utils\cuda</Filter>
-    </ClInclude>
-    <ClInclude Include="CudaAlgorithmUtils.h">
-      <Filter>utils\cuda</Filter>
-    </ClInclude>
-    <ClInclude Include="CudaUtils.h">
-      <Filter>utils\cuda</Filter>
-    </ClInclude>
-    <ClInclude Include="FrequencyUnit.h">
-      <Filter>utils\algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="UtilsDeclaration.h">
-      <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="CudaCoreUtils.h">
-      <Filter>utils\cuda</Filter>
-    </ClInclude>
-    <ClInclude Include="ServiceDeclaration.h">
-      <Filter>service</Filter>
-    </ClInclude>
-    <ClInclude Include="ComplexArray.h">
-      <Filter>utils\algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="ComplexRef.h">
-      <Filter>utils\algorithm</Filter>
+      <Filter>cuda\task\api</Filter>
     </ClInclude>
     <ClInclude Include="CudaNoiseService.h">
       <Filter>service\algorithm</Filter>
@@ -59,25 +32,73 @@
       <Filter>service\memory</Filter>
     </ClInclude>
     <ClInclude Include="CudaTask.h">
+      <Filter>cuda\task</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaAlgorithmUtils.h">
+      <Filter>cuda\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaCommonUtils.h">
+      <Filter>cuda\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaCoreUtils.h">
+      <Filter>cuda\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaUtils.h">
+      <Filter>cuda\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda_task_api.h">
+      <Filter>cuda\task\api</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda_task.h">
+      <Filter>cuda\task</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda_utils.h">
+      <Filter>cuda\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="service_algorithm.h">
       <Filter>service\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="service_memory.h">
+      <Filter>service\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda.h">
+      <Filter>cuda</Filter>
+    </ClInclude>
+    <ClInclude Include="service.h">
+      <Filter>service</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemException.h">
+      <Filter>common\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexArray.h">
+      <Filter>common\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexRef.h">
+      <Filter>common\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="FrequencyUnit.h">
+      <Filter>common\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemCode.h">
+      <Filter>common\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="common_exception.h">
+      <Filter>common\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="common_definition.h">
+      <Filter>common\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="common_utils.h">
+      <Filter>common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>common\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="utils">
-      <UniqueIdentifier>{a1791d45-d96a-43c2-b7e6-5031cb5b663d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utils\cuda">
-      <UniqueIdentifier>{73f5552c-99e3-4b16-9fe5-3d20b800a172}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utils\algorithm">
-      <UniqueIdentifier>{8b037254-cede-4960-9dd8-a7963a4fa634}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="api">
-      <UniqueIdentifier>{1ba57b5a-19a4-4338-8be1-bfd7064febcf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="api\cuda">
-      <UniqueIdentifier>{5d24fc17-e80f-491c-89db-8cad5f54754c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="service">
       <UniqueIdentifier>{98317e9e-4f63-4d3e-9dc6-9beba693cd8c}</UniqueIdentifier>
     </Filter>
@@ -87,6 +108,30 @@
     <Filter Include="service\memory">
       <UniqueIdentifier>{a1e33670-fa8d-475c-8807-ea45b4e38a4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cuda">
+      <UniqueIdentifier>{1ba57b5a-19a4-4338-8be1-bfd7064febcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cuda\task">
+      <UniqueIdentifier>{95d24354-dcf0-427b-bf36-186972881dfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cuda\utils">
+      <UniqueIdentifier>{076b6922-e357-4437-9c8c-a6263b84254d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cuda\task\api">
+      <UniqueIdentifier>{5d24fc17-e80f-491c-89db-8cad5f54754c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{a4df1937-b5b5-4fe4-b851-f8e2c519a309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\exception">
+      <UniqueIdentifier>{6ecb9c61-50dd-4ceb-83b5-73571b230360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\definition">
+      <UniqueIdentifier>{3a066f0d-43d9-4d77-bfb7-f46e979127f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\utils">
+      <UniqueIdentifier>{c2ae435b-2fa8-4838-b528-f4135dc7fefd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -95,6 +140,15 @@
     </ClCompile>
     <ClCompile Include="CudaAlgorithmService.cpp">
       <Filter>service\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemException.cpp">
+      <Filter>common\exception</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemCode.cpp">
+      <Filter>common\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtils.cpp">
+      <Filter>common\utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

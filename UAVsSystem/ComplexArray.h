@@ -1,13 +1,14 @@
 #pragma once
 
-#include "ComplexRef.h"
 #include <valarray>
 #include <complex>
 #include <memory>
+#include "ComplexRef.h"
 using namespace std;
 
 template<class _T, size_t _Size>
 class ComplexArray {
+	static_assert(is_arithmetic<_T>::value, "'_T' must be a arithmetic type.");
 private:
 	valarray<_T> realArray;
 	valarray<_T> imagArray;

@@ -1,9 +1,11 @@
 #pragma once
 
-#include "UtilsDeclaration.h"
 #include <string>
 #include <sstream>
+#include "common.h"
 using namespace std;
+
+#define varName(x) #x
 
 class CudaAlgorithmService{
 private:

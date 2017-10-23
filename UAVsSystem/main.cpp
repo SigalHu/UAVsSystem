@@ -1,32 +1,40 @@
 ﻿#include <iostream>
+#include <cstdio>
 #include <time.h>
 #include <valarray>
 #include <string>
-#include "UtilsDeclaration.h"
-#include "ServiceDeclaration.h"
+#include <vector>
+#include "cuda.h"
+#include "service.h"
 using namespace std;
 
-
-template<class _T1>
-void call(_T1 cudaTask){
-	static_assert(is_base_of<CudaTask, _T1>::value, "cudaTask must be a subclass of CudaTask.");
-
-	cudaTask();
-}
-
-class CudaAA :public CudaTask{
-public:
-	CudaAA(dim3 a,dim3 b):CudaTask(a,b){}
-
-	void operator()(){
+template<class _T>
+class A{
+private:
+	void fun(){
 		cout << "123" << endl;
+	}
+public:
+	A(){}
+	void f(shared_ptr<A> pa){
+		pa->fun();
 	}
 };
 
 int main()
 {
-	call(CudaAA(dim3(1, 1, 1), dim3(1, 1, 1)));
+	cout << __FUNCTION__ << endl;
+	cout << StringUtils::format("%s.","123") << endl;
 
+	try{
+		SystemException ex(SystemCode::CUDA_CALL_ERROR, "123444444444444444444");
+		throw ex;
+	}
+	catch (SystemException &ex){
+		cout << ex.code() << endl;
+		cout << ex.what() << endl;
+	}
+	
 //	CudaNoiseService service(1000,1000);
 //	cout << service.toString() << endl;
 

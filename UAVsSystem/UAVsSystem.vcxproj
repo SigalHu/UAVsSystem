@@ -164,22 +164,37 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClCompile Include="CudaNoiseService.cpp" />
     <ClCompile Include="CudaAlgorithmService.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="SystemCode.cpp" />
+    <ClCompile Include="SystemException.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="common_definition.h" />
+    <ClInclude Include="common_exception.h" />
+    <ClInclude Include="common_utils.h" />
+    <ClInclude Include="cuda_task.h" />
+    <ClInclude Include="cuda_task_api.h" />
     <ClInclude Include="ComplexArray.h" />
     <ClInclude Include="ComplexRef.h" />
     <ClInclude Include="CudaAlgorithmUtils.h" />
     <ClInclude Include="CudaCommonUtils.h" />
     <ClInclude Include="CudaCoreUtils.h" />
+    <ClInclude Include="cuda.h" />
     <ClInclude Include="CudaMemoryService.h" />
     <ClInclude Include="CudaNoiseService.h" />
     <ClInclude Include="CudaAlgorithmService.h" />
     <ClInclude Include="CudaTask.h" />
     <ClInclude Include="CudaUtils.h" />
-    <ClInclude Include="ServiceDeclaration.h" />
-    <ClInclude Include="UtilsDeclaration.h" />
+    <ClInclude Include="cuda_utils.h" />
+    <ClInclude Include="service_algorithm.h" />
+    <ClInclude Include="service.h" />
     <ClInclude Include="dev_noise.cuh" />
     <ClInclude Include="FrequencyUnit.h" />
+    <ClInclude Include="service_memory.h" />
+    <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="SystemCode.h" />
+    <ClInclude Include="SystemException.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

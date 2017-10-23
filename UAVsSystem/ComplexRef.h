@@ -7,13 +7,15 @@ template<class _T>
 class ComplexRef final:public complex<_T>{
 	template<class _T1, size_t _Size>
 	friend class ComplexArray;
+
+	typedef typename remove_reference<_T>::type& _Tref;
 private:
-	_T& realValue;
-	_T& imagValue;
+	_Tref realValue;
+	_Tref imagValue;
 private:
 	ComplexRef() = default;
 	ComplexRef(const ComplexRef& item) = default;
-	ComplexRef(_T& realValue, _T& imagValue) :complex<_T>(realValue, imagValue),realValue(realValue), imagValue(imagValue){}
+	ComplexRef(_Tref realValue, _Tref imagValue) :complex<_T>(realValue, imagValue),realValue(realValue), imagValue(imagValue){}
 public:
 	_T real(){
 		return (this->realValue);
@@ -23,35 +25,35 @@ public:
 		return (this->imagValue);
 	}
 
-	ComplexRef<_T>& operator=(const _T& _Right){
+	ComplexRef<_T>& operator=(const _Tref _Right){
 		complex<_T>::operator=(_Right);
 		this->realValue = complex<_T>::real();
 		this->imagValue = complex<_T>::imag();
 		return (*this);
 	}
 
-	ComplexRef<_T>& operator+=(const _T& _Right){
+	ComplexRef<_T>& operator+=(const _Tref _Right){
 		complex<_T>::operator+=(_Right);
 		this->realValue = complex<_T>::real();
 		this->imagValue = complex<_T>::imag();
 		return (*this);
 	}
 
-	ComplexRef<_T>& operator-=(const _T& _Right){
+	ComplexRef<_T>& operator-=(const _Tref _Right){
 		complex<_T>::operator-=(_Right);
 		this->realValue = complex<_T>::real();
 		this->imagValue = complex<_T>::imag();
 		return (*this);
 	}
 
-	ComplexRef<_T>& operator*=(const _T& _Right){
+	ComplexRef<_T>& operator*=(const _Tref _Right){
 		complex<_T>::operator*=(_Right);
 		this->realValue = complex<_T>::real();
 		this->imagValue = complex<_T>::imag();
 		return (*this);
 	}
 
-	ComplexRef<_T>& operator/=(const _T& _Right){
+	ComplexRef<_T>& operator/=(const _Tref _Right){
 		complex<_T>::operator/=(_Right);
 		this->realValue = complex<_T>::real();
 		this->imagValue = complex<_T>::imag();

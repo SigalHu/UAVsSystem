@@ -1,13 +1,17 @@
 #pragma once
 
-#include "UtilsDeclaration.h"
 #include <stdexcept>
-#include "CudaTask.h"
+#include <memory>
+#include "cuda.h"
 using namespace std;
 
 template<class _T>
 class CudaMemoryService final{
+	static_assert(is_arithmetic<_T>::value, "'_T' must be a arithmetic type.");
 private:
+	static unsigned int useCount;
+	const unsigned int deviceId;
+
 	void *ptr;
 	size_t width;
 	size_t height;
@@ -15,22 +19,32 @@ private:
 
 	size_t pos;
 private:
-	_T *getPtr() const{
-		return this->ptr;
+	CudaMemoryService() = default;
+	CudaMemoryService(const CudaMemoryService& item) = default;
+	CudaMemoryService<_T>& operator=(const CudaMemoryService& _Right) = default;
+
+	_T* getPtr() const{
+		return static_cast<_T*>(this->ptr);
 	}
 public:
-	CudaMemoryService(const size_t &width) throw(bad_alloc)
-		:width(width * sizeof(_T)), height(1), pitch(width * sizeof(_T)), pos(0){
+	CudaMemoryService(const unsigned int &deviceId, const size_t &width) throw(bad_alloc)
+		:deviceId(deviceId), width(width * sizeof(_T)), height(1), pitch(width * sizeof(_T)), pos(0){
+		if (this->deviceId >= CudaUtils::getDeviceCount())
+			throw bad_alloc();
+		if (!CudaUtils::setDevice(this->deviceId))
+			throw bad_alloc();
 		if (!CudaCoreUtils::malloc(&(this->ptr), this->width)){
-			this->ptr = nullptr;
 			throw bad_alloc();
 		}
 	}
 
-	CudaMemoryService(const size_t &width, const size_t &height) throw(bad_alloc)
-		:width(width * sizeof(_T)), height(height),pos(0){
+	CudaMemoryService(const unsigned int &deviceId, const size_t &width, const size_t &height) throw(bad_alloc)
+		:deviceId(deviceId), width(width * sizeof(_T)), height(height), pos(0){
+		if (this->deviceId >= CudaUtils::getDeviceCount())
+			throw bad_alloc();
+		if (!CudaUtils::setDevice(this->deviceId))
+			throw bad_alloc();
 		if (!CudaCoreUtils::mallocPitch(&(this->ptr), &(this->pitch), this->width, this->height)){
-			this->ptr = nullptr;
 			throw bad_alloc();
 		}
 	}
@@ -38,6 +52,12 @@ public:
 	~CudaMemoryService(){
 		if (this->ptr)
 			CudaCoreUtils::free(this->ptr);
+		if (--CudaMemoryService::deviceId == 0)
+			CudaUtils::resetDevice();
+	}
+
+	int getDeviceId() const{
+		return this->deviceId;
 	}
 
 	size_t getWidth() const{
@@ -75,6 +95,8 @@ public:
 	size_t read(void* const &dest, size_t nBytes) const throw(invalid_argument){
 		if (dest == nullptr)
 			throw invalid_argument(string(varName(dest)) + " can not be nullptr.");
+	//	if (!CudaUtils::setDevice(this->deviceId))
+			//throw runtime_error("GPU can not be set to " + 0 + ".");
 
 		if (this->height == 1){
 			int _Size = this->getSizeBytes();
@@ -108,10 +130,22 @@ public:
 	}
 
 	template<class _T1>
-	void call(_T1 cudaTask){
+	void call(typename remove_reference<_T1>::type& cudaTask, 
+		initializer_list<shared_ptr<CudaMemoryService>> others = {}) throw(invalid_argument){
 		static_assert(is_base_of<CudaTask, _T1>::value, "cudaTask must be a subclass of CudaTask.");
 
-		cudaTask();
+		vector<void*> otherPtrs;
+		otherPtrs.reserve(others.size());
+		for (const shared_ptr<CudaMemoryService> &item : others){
+			otherPtrs.emplace_back(item->getPtr());
+		}
+		
+		if (!CudaUtils::setDevice(this->deviceId))
+			throw invalid_argument("GPU memory reading failed.");
+		cudaTask(this->getPtr(), otherPtrs);
 	}
 };
+
+template<class _T>
+unsigned int CudaMemoryService<_T>::useCount = 0;
 
