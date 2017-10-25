@@ -94,7 +94,7 @@ public:
 
 	size_t read(void* const &dest, size_t nBytes) const throw(invalid_argument){
 		if (dest == nullptr)
-			throw invalid_argument(string(varName(dest)) + " can not be nullptr.");
+			throw invalid_argument(MacroUtils_VariableName(dest) + " can not be nullptr.");
 	//	if (!CudaUtils::setDevice(this->deviceId))
 			//throw runtime_error("GPU can not be set to " + 0 + ".");
 
@@ -118,7 +118,7 @@ public:
 			int _Height = nBytes / this->width;
 			int _CurrentHeight = this->pos / this->pitch;
 			if (_Height == 0)
-				throw invalid_argument(string(varName(nBytes)) + " can not be less than " + string(varName(width)) + ".");
+				throw invalid_argument(MacroUtils_VariableName(nBytes) + " can not be less than " + MacroUtils_VariableName(width) + ".");
 			else if (_CurrentHeight + _Height > this->height)
 				_Height = this->height - _CurrentHeight;
 			if (cudaSuccess != cudaMemcpy2D(dest, this->width, this->ptr + this->pos, this->pitch, this->width, _Height, cudaMemcpyDeviceToHost))

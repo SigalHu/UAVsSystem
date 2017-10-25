@@ -3,7 +3,10 @@
 #include <valarray>
 #include <complex>
 #include <memory>
+#include "common_utils.h"
+#include "common_exception.h"
 #include "ComplexRef.h"
+#include "SystemCodeEnum.h"
 using namespace std;
 
 template<class _T, size_t _Size>
@@ -27,47 +30,61 @@ public:
 	~ComplexArray(){
 	}
 
-	ComplexRef<_T>& operator[](const size_t& _Off) throw(out_of_range){
+	ComplexRef<_T>& operator[](const size_t& _Off) {
 		if (_Off >= _Size)
-			throw out_of_range();
+			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+				StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(_Off), "null."));
 		upCurrentItem.reset(new ComplexRef<_T>(this->realArray[_Off], this->imagArray[_Off]));
 		return (*upCurrentItem);
 	}
 
-	void set(const size_t& index, const complex<_T>& value) throw(out_of_range){
+	void set(const size_t& index, const complex<_T>& value) {
 		if (index >= _Size)
-			throw out_of_range();
+			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+				StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+				MacroUtils_ClassName(*this),MacroUtils_FunctionName(),MacroUtils_VariableName(index),"null."));
 		this->realArray[index] = value.real();
 		this->imagArray[index] = value.imag();
 	}
 
-	complex<_T> get(const size_t& index) const throw(out_of_range){
+	complex<_T> get(const size_t& index) const {
 		if (index >= _Size)
-			throw out_of_range();
+			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+				StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null."));
 		return complex<_T>(this->realArray[index], this->imagArray[index]);
 	}
 
-	void setReal(const size_t& index, const _T &value) throw(out_of_range){
+	void setReal(const size_t& index, const _T &value) {
 		if (index >= _Size)
-			throw out_of_range();
+			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+				StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null."));
 		this->realArray[index] = value;
 	}
 
-	_T getReal(const size_t& index) const throw(out_of_range){
+	_T getReal(const size_t& index) const {
 		if (index >= _Size)
-			throw out_of_range();
+			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+				StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null."));
 		return this->realArray[index];
 	}
 
-	void setImag(const size_t& index, const _T &value) throw(out_of_range){
+	void setImag(const size_t& index, const _T &value) {
 		if (index >= _Size)
-			throw out_of_range();
+			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+				StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null."));
 		this->imagArray[index] = value;
 	}
 
-	_T getImag(const size_t& index) const throw(out_of_range){
+	_T getImag(const size_t& index) const {
 		if (index >= _Size)
-			throw out_of_range();
+			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+				StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null."));
 		return this->imagArray[index];
 	}
 

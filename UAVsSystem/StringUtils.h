@@ -1,13 +1,14 @@
 #pragma once
 
 #include <cstdarg>
+#include <memory>
 #include <string>
 using namespace std;
 
 class StringUtils final{
-public:
+private:
 	virtual ~StringUtils() = 0;
-
-	static string format(const char *_Format, ...);
+public:
+	static string format(const string &_Format, ...);
 };
 

@@ -166,6 +166,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="SystemCode.cpp" />
+    <ClCompile Include="SystemCodeEnum.cpp" />
     <ClCompile Include="SystemException.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +188,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="CudaTask.h" />
     <ClInclude Include="CudaUtils.h" />
     <ClInclude Include="cuda_utils.h" />
+    <ClInclude Include="MacroUtils.h" />
     <ClInclude Include="service_algorithm.h" />
     <ClInclude Include="service.h" />
     <ClInclude Include="dev_noise.cuh" />
@@ -194,6 +196,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="service_memory.h" />
     <ClInclude Include="StringUtils.h" />
     <ClInclude Include="SystemCode.h" />
+    <ClInclude Include="SystemCodeEnum.h" />
     <ClInclude Include="SystemException.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

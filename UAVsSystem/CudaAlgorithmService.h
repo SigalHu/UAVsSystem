@@ -5,8 +5,6 @@
 #include "common.h"
 using namespace std;
 
-#define varName(x) #x
-
 class CudaAlgorithmService{
 private:
 	static const unsigned int MIN_PATH_NUM;

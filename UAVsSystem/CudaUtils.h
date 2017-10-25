@@ -1,15 +1,13 @@
 #pragma once
 
 #include "cuda_task.h"
-
+#include "common.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <time.h>
 #include <cstdio>
 #include <stdexcept>
 using namespace std;
-
-#define varName(x) #x
 
 class CudaUtils{
 public:

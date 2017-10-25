@@ -9,7 +9,6 @@ private:
 	const SystemCode &_Code;
 private:
 	SystemException() = default;
-	SystemException(const SystemException &) = default;
 public:
 	SystemException(const SystemCode &code, const string &info);
 	~SystemException();

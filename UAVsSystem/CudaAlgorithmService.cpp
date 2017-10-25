@@ -100,17 +100,17 @@ string CudaAlgorithmService::toString() const{
 	ostringstream ss;
 	ss << typeid(*this).name();
 	ss << "{";
-	ss << varName(deviceId) << "=" << getDeviceId();
+	ss << MacroUtils_VariableName(deviceId) << "=" << getDeviceId();
 	ss << ",";
-	ss << varName(pathNum) << "=" << getPathNum();
+	ss << MacroUtils_VariableName(pathNum) << "=" << getPathNum();
 	ss << ",";
-	ss << varName(fs) << "=" << getFs();
+	ss << MacroUtils_VariableName(fs) << "=" << getFs();
 	ss << ",";
-	ss << varName(timeSpend) << "=" << getTimeSpend();
+	ss << MacroUtils_VariableName(timeSpend) << "=" << getTimeSpend();
 	ss << ",";
-	ss << varName(maxFd) << "=" << getMaxFd();
+	ss << MacroUtils_VariableName(maxFd) << "=" << getMaxFd();
 	ss << ",";
-	ss << varName(deltaOmega) << "=" << getDeltaOmega();
+	ss << MacroUtils_VariableName(deltaOmega) << "=" << getDeltaOmega();
 	ss << "}";
 	return ss.str();
 }

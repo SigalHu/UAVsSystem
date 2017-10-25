@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 
 #include "common_exception.h"
 #include "common_definition.h"
