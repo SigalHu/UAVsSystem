@@ -17,6 +17,7 @@
     <CudaCompile Include="CudaUtils.cu">
       <Filter>cuda\utils</Filter>
     </CudaCompile>
+    <CudaCompile Include="main.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dev_noise.cuh">
@@ -79,9 +80,6 @@
     <ClInclude Include="FrequencyUnit.h">
       <Filter>common\definition</Filter>
     </ClInclude>
-    <ClInclude Include="SystemCode.h">
-      <Filter>common\definition</Filter>
-    </ClInclude>
     <ClInclude Include="common_exception.h">
       <Filter>common\exception</Filter>
     </ClInclude>
@@ -97,11 +95,23 @@
     <ClInclude Include="StringUtils.h">
       <Filter>common\utils</Filter>
     </ClInclude>
-    <ClInclude Include="SystemCodeEnum.h">
-      <Filter>common\definition</Filter>
-    </ClInclude>
     <ClInclude Include="MacroUtils.h">
       <Filter>common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemCode.h">
+      <Filter>common\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemCodeEnum.h">
+      <Filter>common\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="HostVector.h">
+      <Filter>cuda\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda_definition.h">
+      <Filter>cuda\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceVector.h">
+      <Filter>cuda\definition</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -138,9 +148,11 @@
     <Filter Include="common\utils">
       <UniqueIdentifier>{c2ae435b-2fa8-4838-b528-f4135dc7fefd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cuda\definition">
+      <UniqueIdentifier>{8ccc98fa-82e9-4d0e-a35c-f7d7d3e04d52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="CudaNoiseService.cpp">
       <Filter>service\algorithm</Filter>
     </ClCompile>
@@ -150,14 +162,14 @@
     <ClCompile Include="SystemException.cpp">
       <Filter>common\exception</Filter>
     </ClCompile>
-    <ClCompile Include="SystemCode.cpp">
-      <Filter>common\definition</Filter>
-    </ClCompile>
     <ClCompile Include="StringUtils.cpp">
       <Filter>common\utils</Filter>
     </ClCompile>
+    <ClCompile Include="SystemCode.cpp">
+      <Filter>common\exception</Filter>
+    </ClCompile>
     <ClCompile Include="SystemCodeEnum.cpp">
-      <Filter>common\definition</Filter>
+      <Filter>common\exception</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

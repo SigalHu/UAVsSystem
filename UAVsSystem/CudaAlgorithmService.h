@@ -12,7 +12,7 @@ private:
 	static const float DEFAULT_TIME_SPEND;
 	static const float DEFAULT_MAX_FD;
 	static const float DEFAULT_DELTA_OMEGA;
-
+protected:
 	int deviceId;
 
 	unsigned int pathNum;

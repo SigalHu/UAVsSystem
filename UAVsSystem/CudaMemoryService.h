@@ -9,7 +9,7 @@ template<class _T>
 class CudaMemoryService final{
 	static_assert(is_arithmetic<_T>::value, "'_T' must be a arithmetic type.");
 private:
-	static unsigned int useCount;
+	static vector<unsigned int> useCount;
 	const unsigned int deviceId;
 
 	void *ptr;
@@ -27,15 +27,22 @@ private:
 		return static_cast<_T*>(this->ptr);
 	}
 public:
-	CudaMemoryService(const unsigned int &deviceId, const size_t &width) throw(bad_alloc)
+	CudaMemoryService(const unsigned int &deviceId, const size_t &width)
 		:deviceId(deviceId), width(width * sizeof(_T)), height(1), pitch(width * sizeof(_T)), pos(0){
 		if (this->deviceId >= CudaUtils::getDeviceCount())
-			throw bad_alloc();
+			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+				StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(deviceId), 
+				MacroUtils_VariableName(deviceId) + " must be less than the number of GPU devices."));
 		if (!CudaUtils::setDevice(this->deviceId))
-			throw bad_alloc();
+			throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
+				StringUtils::format(SystemCodeEnum::CUDA_RUNTIME_ERROR.getInfo(),
+				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(deviceId),
+				MacroUtils_VariableName(deviceId) + " must be less than the number of GPU devices."));
 		if (!CudaCoreUtils::malloc(&(this->ptr), this->width)){
 			throw bad_alloc();
 		}
+		CudaMemoryService::useCount[this->deviceId]++;
 	}
 
 	CudaMemoryService(const unsigned int &deviceId, const size_t &width, const size_t &height) throw(bad_alloc)
@@ -47,12 +54,13 @@ public:
 		if (!CudaCoreUtils::mallocPitch(&(this->ptr), &(this->pitch), this->width, this->height)){
 			throw bad_alloc();
 		}
+		CudaMemoryService::useCount[this->deviceId]++;
 	}
 
 	~CudaMemoryService(){
 		if (this->ptr)
 			CudaCoreUtils::free(this->ptr);
-		if (--CudaMemoryService::deviceId == 0)
+		if (--CudaMemoryService::useCount[this->deviceId] == 0)
 			CudaUtils::resetDevice();
 	}
 
@@ -147,5 +155,4 @@ public:
 };
 
 template<class _T>
-unsigned int CudaMemoryService<_T>::useCount = 0;
-
+vector<unsigned int> CudaMemoryService<_T>::useCount(CudaUtils::getDeviceCount(),0);

@@ -1,49 +1,16 @@
 ﻿#include <iostream>
-#include <cstdio>
-#include <time.h>
-#include <valarray>
-#include <string>
-#include <vector>
 #include "cuda.h"
-#include "service.h"
 using namespace std;
-
-class A{
-private:
-	void fun(){
-		cout << "123" << endl;
+using namespace thrust;
+int main(){
+	HostVector<float> a(10, 1);
+	cout << a[0] << endl;
+	DeviceVector<float> b(10,2);
+	b = a;
+	for (int bb : b){
+		cout << bb << endl;
 	}
-public:
-	A(){}
-	void f(shared_ptr<A> pa){
-		pa->fun();
-	}
-};
 
-
-#define MACRO_VARIABLE_TO_STRING(Variable) (void(Variable),#Variable)
-
-#define MACRO_FUNCTION_TO_STRING(Function) (void(&Function),#Function)
-
-#define MACRO_METHOD_TO_STRING(ClassName,Method) (void(&ClassName::Method),#Method)
-
-#define MACRO_TYPE_TO_STRING(Type) (void(sizeof(Type)),#Type)
-
-int main()
-{
-	cout << MacroUtils_FunctionName() << endl;
-
-	cout << MACRO_METHOD_TO_STRING(A,f) << endl;;
-
-	try{
-		SystemException ex(SystemCodeEnum::CUDA_CALL_ERROR, "123444444444444444444");
-		throw ex;
-	}
-	catch (SystemException &ex){
-		cout << ex.code() << endl;
-		cout << ex.what() << endl;
-	}
-	
 //	CudaNoiseService service(1000,1000);
 //	cout << service.toString() << endl;
 

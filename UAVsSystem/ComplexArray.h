@@ -88,14 +88,6 @@ public:
 		return this->imagArray[index];
 	}
 
-	_T* getRealPtr() const{
-		return &(this->realArray[0]);
-	}
-
-	_T* getImagPtr() const{
-		return &(this->imagArray[0]);
-	}
-
 	valarray<_T>& getRealArray() {
 		return (this->realArray);
 	}

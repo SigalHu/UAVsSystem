@@ -1,10 +1,13 @@
-//#include <thrust/device_vector.h>
 //#include <iostream>
+//#include "DeviceVector.cuh"
 //using namespace std;
 //using namespace thrust;
 //
 //int main(){
-//	device_vector<int> a(1000);
+//	DeviceVector<int> a(1000,1);
 //	cout << a.size() << endl;
+//	cout << a[0] << endl;
+//	a[0]++;
+//	cout << a[0] << endl;
 //	cin.get();
 //}

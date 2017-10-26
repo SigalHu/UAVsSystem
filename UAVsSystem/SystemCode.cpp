@@ -4,7 +4,6 @@ SystemCode::SystemCode(const unsigned int &code, const string &info)
 :code(code),info(info){
 }
 
-
 SystemCode::~SystemCode() {
 }
 

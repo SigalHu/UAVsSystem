@@ -1,28 +1,41 @@
 #include "CudaUtils.h"
 
+string CudaUtils::lastError = "";
+
+const string& CudaUtils::getLastError() const{
+	return CudaUtils::lastError;
+}
+
 bool CudaUtils::setDevice(int device){
-	return cudaSuccess == cudaSetDevice(device);
+	cudaError error = cudaSetDevice(device);
+	CudaUtils::lastError = cudaGetErrorString(error);
+	return cudaSuccess == error;
 }
 
 bool CudaUtils::resetDevice(){
-	return cudaSuccess == cudaDeviceReset();
+	cudaError error = cudaDeviceReset();
+	CudaUtils::lastError = cudaGetErrorString(error);
+	return cudaSuccess == error;
 }
 
 int CudaUtils::getDeviceCount(){
 	int count = 0;
-	cudaGetDeviceCount(&count);
+	cudaError error = cudaGetDeviceCount(&count);
+	CudaUtils::lastError = cudaGetErrorString(error);
 	return count;
 }
 
-bool CudaUtils::getDeviceProperties(int device, cudaDeviceProp *prop){
-	return cudaSuccess == cudaGetDeviceProperties(prop, device);
+bool CudaUtils::getDeviceProperties(int device, cudaDeviceProp &prop){
+	cudaError error = cudaGetDeviceProperties(&prop, device);
+	CudaUtils::lastError = cudaGetErrorString(error);
+	return cudaSuccess == error;
 }
 
 void CudaUtils::printDeviceProperties(){
 	int count = getDeviceCount();
 	cudaDeviceProp prop;
 	for (int ii = 0; ii < count; ii++){
-		if (getDeviceProperties(ii, &prop)){
+		if (getDeviceProperties(ii, prop)){
 			printf("###############################################\n");
 			printf("Device Name : %s.\n", prop.name);
 			printf("totalGlobalMem : %d.\n", prop.totalGlobalMem);
