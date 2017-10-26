@@ -17,7 +17,7 @@
     <CudaCompile Include="CudaUtils.cu">
       <Filter>cuda\utils</Filter>
     </CudaCompile>
-    <CudaCompile Include="main.cu" />
+    <CudaCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dev_noise.cuh">

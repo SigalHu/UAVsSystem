@@ -2,13 +2,41 @@
 #include "cuda.h"
 using namespace std;
 using namespace thrust;
+
+class A{
+public:
+	A(){
+		cout << "A()" << endl;
+	}
+
+	A(const A &a){
+		cout << "A(const A &a)" << endl;
+	}
+
+	A(A &&a){
+		cout << "A(A &&a)" << endl;
+	}
+
+	~A(){
+		cout << "~A()" << endl;
+	}
+};
+
+A fun(){
+	return A();
+}
+
 int main(){
-	HostVector<float> a(10, 1);
-	cout << a[0] << endl;
-	DeviceVector<float> b(10,2);
-	b = a;
-	for (int bb : b){
-		cout << bb << endl;
+	A a;
+	try{
+		cout << MacroUtils_ClassName(a) << MacroUtils_FunctionName() << MacroUtils_VariableName(a) << endl;
+		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+			StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+			MacroUtils_ClassName(a).c_str(), MacroUtils_FunctionName().c_str(), MacroUtils_VariableName(a).c_str(),
+			MacroUtils_VariableName(a).append(" must be less than the number of GPU devices.").c_str()));
+	}
+	catch (SystemException &ex){
+		cout << ex.what() << endl;
 	}
 
 //	CudaNoiseService service(1000,1000);
