@@ -113,6 +113,12 @@
     <ClInclude Include="DeviceVector.h">
       <Filter>cuda\definition</Filter>
     </ClInclude>
+    <ClInclude Include="DeviceManager.h">
+      <Filter>cuda\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="HostComplexArray.h">
+      <Filter>cuda\definition</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="service">
@@ -170,6 +176,9 @@
     </ClCompile>
     <ClCompile Include="SystemCodeEnum.cpp">
       <Filter>common\exception</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>cuda\definition</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

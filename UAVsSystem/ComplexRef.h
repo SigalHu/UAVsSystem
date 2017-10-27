@@ -5,8 +5,11 @@ using namespace std;
 
 template<class _T>
 class ComplexRef final:public complex<_T>{
-	template<class _T1, size_t _Size>
+	template<class _T1>
 	friend class ComplexArray;
+
+	template<class _T, class _Alloc = std::allocator<_T>>
+	friend class HostComplexArray;
 
 	typedef typename remove_reference<_T>::type& _Tref;
 private:

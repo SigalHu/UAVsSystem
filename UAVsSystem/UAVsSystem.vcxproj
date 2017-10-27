@@ -164,6 +164,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <ClCompile Include="CudaNoiseService.cpp" />
     <ClCompile Include="CudaAlgorithmService.cpp" />
+    <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="SystemCode.cpp" />
     <ClCompile Include="SystemCodeEnum.cpp" />
@@ -189,7 +190,9 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="CudaTask.h" />
     <ClInclude Include="CudaUtils.h" />
     <ClInclude Include="cuda_utils.h" />
+    <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="DeviceVector.h" />
+    <ClInclude Include="HostComplexArray.h" />
     <ClInclude Include="HostVector.h" />
     <ClInclude Include="MacroUtils.h" />
     <ClInclude Include="service_algorithm.h" />

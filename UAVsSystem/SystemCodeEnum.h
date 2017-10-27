@@ -9,6 +9,7 @@ public:
 
 	static const SystemCode NULL_POINTER;
 	static const SystemCode OUT_OF_RANGE;
+	static const SystemCode NOT_EQUAL;
 private:
 	SystemCodeEnum() = default;
 	SystemCodeEnum(const SystemCodeEnum &) = default;
