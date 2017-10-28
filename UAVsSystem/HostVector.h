@@ -1,12 +1,12 @@
 #pragma once
 #include <vector>
 #include "thrust\host_vector.h"
-#include "DeviceVector.h"
-using namespace std;
-using namespace thrust;
+
+template<class _OtherT, class _OtherAlloc>
+class DeviceVector;
 
 template<class _T, class _Alloc = std::allocator<_T>>
-class HostVector :public host_vector < _T, _Alloc > {
+class HostVector :public thrust::host_vector < _T, _Alloc > {
 public:
 	HostVector(){}
 	HostVector(const size_t &n) :host_vector(n){}
@@ -34,10 +34,10 @@ public:
 	}
 
 	template<class _OtherT, class _OtherAlloc>
-	HostVector(const vector<_OtherT, _OtherAlloc> &v) : host_vector(v){}
+	HostVector(const std::vector<_OtherT, _OtherAlloc> &v) : host_vector(v){}
 
 	template<class _OtherT, class _OtherAlloc>
-	HostVector &operator=(const vector<_OtherT, _OtherAlloc> &v){
+	HostVector &operator=(const std::vector<_OtherT, _OtherAlloc> &v){
 		host_vector::operator=(v);
 		return *this;
 	}

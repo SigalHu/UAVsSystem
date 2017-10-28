@@ -1,21 +1,16 @@
 #pragma once
-
 #include <valarray>
 #include <memory>
 #include <complex>
-#include "common_utils.h"
-#include "common_exception.h"
 #include "ComplexRef.h"
-#include "SystemCodeEnum.h"
-using namespace std;
 
 template<class _T>
 class ComplexArray {
-	static_assert(is_arithmetic<_T>::value, "'_T' must be a arithmetic type.");
+	static_assert(std::is_arithmetic<_T>::value, "'_T' must be a arithmetic type.");
 private:
-	valarray<_T> realArray;
-	valarray<_T> imagArray;
-	unique_ptr<ComplexRef<_T>> upCurrentItem;
+	std::valarray<_T> realArray;
+	std::valarray<_T> imagArray;
+	std::unique_ptr<ComplexRef<_T>> upCurrentItem;
 public:
 	ComplexArray(const size_t &size){
 		this->resize(size);
@@ -35,59 +30,59 @@ public:
 	ComplexRef<_T>& operator[](const size_t& _Off) {
 		if (_Off >= this->size())
 			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-			MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(_Off), "null.");
+			MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(_Off), "null.");
 		upCurrentItem.reset(new ComplexRef<_T>(this->realArray[_Off], this->imagArray[_Off]));
 		return (*upCurrentItem);
 	}
 
-	void set(const size_t& index, const complex<_T>& value) {
+	void set(const size_t& index, const std::complex<_T>& value) {
 		if (index >= this->size())
 			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-			MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null.");
+			MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 		this->realArray[index] = value.real();
 		this->imagArray[index] = value.imag();
 	}
 
-	complex<_T> get(const size_t& index) const {
+	std::complex<_T> get(const size_t& index) const {
 		if (index >= this->size())
 			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-			MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null.");
-		return complex<_T>(this->realArray[index], this->imagArray[index]);
+			MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		return std::complex<_T>(this->realArray[index], this->imagArray[index]);
 	}
 
 	void setReal(const size_t& index, const _T &value) {
 		if (index >= this->size())
 			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-			MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null.");
+			MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 		this->realArray[index] = value;
 	}
 
 	_T getReal(const size_t& index) const {
 		if (index >= this->size())
 			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-			MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null.");
+			MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 		return this->realArray[index];
 	}
 
 	void setImag(const size_t& index, const _T &value) {
 		if (index >= this->size())
 			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-			MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null.");
+			MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 		this->imagArray[index] = value;
 	}
 
 	_T getImag(const size_t& index) const {
 		if (index >= this->size())
 			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-			MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(index), "null.");
+			MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 		return this->imagArray[index];
 	}
 
-	valarray<_T>& getRealArray() const{
+	std::valarray<_T>& getRealArray() const{
 		return this->realArray;
 	}
 
-	valarray<_T>& getImagArray() const{
+	std::valarray<_T>& getImagArray() const{
 		return this->imagArray;
 	}
 
@@ -121,14 +116,14 @@ public:
 		size_t imagSize = this->imagArray.size();
 
 		if (realSize > imagSize){
-			valarray<_T> _Array(0, realSize);
+			std::valarray<_T> _Array(0, realSize);
 			for (int ii = 0; ii < imagSize; ++ii){
 				_Array[ii] = this->imagArray[ii];
 			}
 			this->imagArray = _Array;
 		}
 		else if (realSize < imagSize){
-			valarray<_T> _Array(0, imagSize);
+			std::valarray<_T> _Array(0, imagSize);
 			for (int ii = 0; ii < realSize; ++ii){
 				_Array[ii] = this->realArray[ii];
 			}
@@ -141,11 +136,11 @@ public:
 		size_t imagSize = this->imagArray.size();
 
 		if (realSize > imagSize){
-			valarray<_T> _Array(&(this->realArray[0]), imagSize);
+			std::valarray<_T> _Array(&(this->realArray[0]), imagSize);
 			this->realArray = _Array;
 		}
 		else if (realSize < imagSize){
-			valarray<_T> _Array(&(this->imagArray[0]), realSize);
+			std::valarray<_T> _Array(&(this->imagArray[0]), realSize);
 			this->imagArray = _Array;
 		}
 	}
@@ -155,14 +150,14 @@ public:
 		size_t imagSize = this->imagArray.size();
 
 		if (realSize > imagSize){
-			valarray<_T> _Array(0, realSize);
+			std::valarray<_T> _Array(0, realSize);
 			for (int ii = 0; ii < imagSize; ++ii){
 				_Array[ii] = this->imagArray[ii];
 			}
 			this->imagArray = _Array;
 		}
 		else if (realSize < imagSize){
-			valarray<_T> _Array(&(this->imagArray[0]), realSize);
+			std::valarray<_T> _Array(&(this->imagArray[0]), realSize);
 			this->imagArray = _Array;
 		}
 	}
@@ -172,11 +167,11 @@ public:
 		size_t imagSize = this->imagArray.size();
 
 		if (realSize > imagSize){
-			valarray<_T> _Array(&(this->realArray[0]), imagSize);
+			std::valarray<_T> _Array(&(this->realArray[0]), imagSize);
 			this->realArray = _Array;
 		}
 		else if (realSize < imagSize){
-			valarray<_T> _Array(0, imagSize);
+			std::valarray<_T> _Array(0, imagSize);
 			for (int ii = 0; ii < realSize; ++ii){
 				_Array[ii] = this->realArray[ii];
 			}

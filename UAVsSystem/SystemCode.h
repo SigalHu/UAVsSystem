@@ -1,21 +1,19 @@
 #pragma once
-
 #include <string>
-using namespace std;
 
 class SystemCode final{
 	friend class SystemCodeEnum;
 private:
 	const unsigned int code;
-	const string info;
+	const std::string info;
 private:
 	SystemCode() = default;
 	SystemCode(const SystemCode&) = default;
-	SystemCode(const unsigned int &code, const string &info);
+	SystemCode(const unsigned int &code, const std::string &info);
 public:
 	~SystemCode();
 
 	const unsigned int& getCode() const;
-	const string& getInfo() const;
+	const std::string& getInfo() const;
 };
 

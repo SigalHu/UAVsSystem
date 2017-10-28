@@ -4,23 +4,14 @@
 using namespace std;
 using namespace thrust;
 
-class A{
-public:
-	void fun(){
-		cout << typeid(*this).name() << endl;
-	}
-};
-
-class B :public A{
-public:
-	virtual void fun(){
-		cout << typeid(*this).name() << endl;
-	}
-};
-
 int main(){
-	A &&a = B();
-	a.fun();
+	shared_ptr<DeviceVector<int>> spdv = make_shared<DeviceVector<int>>(0,2,5);
+	DeviceVector<int> &dv = *spdv;
+	device_ptr<void> dp = dv.data();
+	for (int ii = 0; ii < dv.size(); ++ii){
+		cout << dv[ii] << endl;
+	}
+
 //	CudaNoiseService service(1000,1000);
 //	cout << service.toString() << endl;
 
@@ -59,7 +50,7 @@ int main(){
 	cin.get();
 
 	start = clock();
-	isSucceed = CudaCommonUtils::cudaNoiseGene(&noise[0][0], &noise[1][0], noise[0].size(), 0, 1);
+	isSucceed = CudaRandUtils::cudaNoiseGene(&noise[0][0], &noise[1][0], noise[0].size(), 0, 1);
 	stop = clock();
 
 	if (isSucceed){

@@ -1,20 +1,19 @@
 #pragma once
 #include <vector>
 #include "thrust\device_vector.h"
-//#include "HostVector.h"
-#include "cuda_utils.h"
-#include "common.h"
+#include "CudaTask.h"
 #include "DeviceManager.h"
-using namespace std;
-using namespace thrust;
+#include "SystemCodeEnum.h"
+#include "SystemException.h"
+#include "MacroUtils.h"
 
-template<class _T, class _Alloc>
+template<class _OtherT, class _OtherAlloc>
 class HostVector;
 
-template<class _T, class _Alloc = device_malloc_allocator<_T>>
-class DeviceVector :public device_vector < _T, _Alloc >, virtual public DeviceManager {
+template<class _T, class _Alloc = thrust::device_malloc_allocator<_T>>
+class DeviceVector :public thrust::device_vector < _T, _Alloc >, virtual public DeviceManager {
 private:
-	void* getPtr() override{
+	const thrust::device_ptr<void> getPtr() override{
 		return this->data();
 	}
 public:
@@ -41,18 +40,20 @@ public:
 
 	DeviceVector &operator=(const DeviceVector &v){
 		if (getDeviceId() != v.getDeviceId())
-			throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(*this), MacroUtils_FunctionName(), getDeviceIdStr(),
-			StringUtils::format(getDeviceIdStr().append("(=%d) is not equal to another ").append(getDeviceIdStr()).append("(=%d)."),
+			throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), getDeviceIdString(),
+			StringUtils::format(getDeviceIdString().append("(=%d) is not equal to another ").append(getDeviceIdString()).append("(=%d)."),
 			getDeviceId(), v.getDeviceId()));
+		this->switch2Device();
 		device_vector::operator=(v);
 		return *this;
 	}
 
 	DeviceVector &operator=(DeviceVector &&v){
 		if (getDeviceId() != v.getDeviceId())
-			throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(*this), MacroUtils_FunctionName(), getDeviceIdStr(),
-			StringUtils::format(getDeviceIdStr().append("(=%d) is not equal to another ").append(getDeviceIdStr()).append("(=%d)."),
+			throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), getDeviceIdString(),
+			StringUtils::format(getDeviceIdString().append("(=%d) is not equal to another ").append(getDeviceIdString()).append("(=%d)."),
 			getDeviceId(), v.getDeviceId()));
+		this->switch2Device();
 		device_vector::operator=(move(v));
 		return *this;
 	}
@@ -68,31 +69,33 @@ public:
 	template<class _OtherT, class _OtherAlloc>
 	DeviceVector &operator=(const DeviceVector<_OtherT, _OtherAlloc> &v){
 		if (getDeviceId() != v.getDeviceId())
-			throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(*this), MacroUtils_FunctionName(), getDeviceIdStr(),
-			StringUtils::format(getDeviceIdStr().append("(=%d) is not equal to another ").append(getDeviceIdStr()).append("(=%d)."),
+			throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), getDeviceIdString(),
+			StringUtils::format(getDeviceIdString().append("(=%d) is not equal to another ").append(getDeviceIdString()).append("(=%d)."),
 			getDeviceId(), v.getDeviceId()));
+		this->switch2Device();
 		device_vector::operator=(v);
 		return *this;
 	}
 
 	template<class _OtherT, class _OtherAlloc>
-	DeviceVector(const vector<_OtherT, _OtherAlloc> &v)
+	DeviceVector(const std::vector<_OtherT, _OtherAlloc> &v)
 		: DeviceManager(), device_vector(v){}
 
 	template<class _OtherT, class _OtherAlloc>
-	DeviceVector(const vector<_OtherT, _OtherAlloc> &v, const size_t &start, const size_t &len)
+	DeviceVector(const std::vector<_OtherT, _OtherAlloc> &v, const size_t &start, const size_t &len)
 		: DeviceManager(), device_vector(v.begin() + start, v.begin() + start + len){}
 
 	template<class _OtherT, class _OtherAlloc>
-	DeviceVector(const unsigned int &deviceId, const vector<_OtherT, _OtherAlloc> &v) 
+	DeviceVector(const unsigned int &deviceId, const std::vector<_OtherT, _OtherAlloc> &v) 
 		: DeviceManager(deviceId), device_vector(v){}
 
 	template<class _OtherT, class _OtherAlloc>
-	DeviceVector(const unsigned int &deviceId, const vector<_OtherT, _OtherAlloc> &v, const size_t &start, const size_t &len)
+	DeviceVector(const unsigned int &deviceId, const std::vector<_OtherT, _OtherAlloc> &v, const size_t &start, const size_t &len)
 		: DeviceManager(deviceId), device_vector(v.begin() + start, v.begin() + start + len){}
 
 	template<class _OtherT, class _OtherAlloc>
-	DeviceVector &operator=(const vector<_OtherT, _OtherAlloc> &v){
+	DeviceVector &operator=(const std::vector<_OtherT, _OtherAlloc> &v){
+		this->switch2Device();
 		device_vector::operator=(v);
 		return *this;
 	}
@@ -115,6 +118,7 @@ public:
 
 	template<class _OtherT, class _OtherAlloc>
 	DeviceVector &operator=(const HostVector<_OtherT, _OtherAlloc> &v){
+		this->switch2Device();
 		device_vector::operator=(v);
 		return *this;
 	}
@@ -126,18 +130,19 @@ public:
 	~DeviceVector(){
 	}
 
-	void call(const CudaTask& cudaTask, initializer_list<shared_ptr<DeviceManager>> others = {}){
-		vector<void*> otherPtrs;
+	void call(const CudaTask &cudaTask, std::initializer_list<std::shared_ptr<DeviceManager>> others = {}){
+		std::vector<thrust::device_ptr<void>> otherPtrs;
 		otherPtrs.reserve(others.size());
-		for (const shared_ptr<DeviceManager> &item : others){
+
+		for (const std::shared_ptr<DeviceManager> &item : others){
 			if (getDeviceId() != item->getDeviceId())
-				throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(*this), MacroUtils_FunctionName(), getDeviceIdStr(),
-				StringUtils::format(getDeviceIdStr().append("(=%d) is not equal to another ").append(getDeviceIdStr()).append("(=%d)."),
+				throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), getDeviceIdString(),
+				StringUtils::format(getDeviceIdString().append("(=%d) is not equal to another ").append(getDeviceIdString()).append("(=%d)."),
 				getDeviceId(), v.getDeviceId()));
 			otherPtrs.emplace_back(item->getPtr());
 		}
-
-		cudaTask(this->getPtr(), otherPtrs);
+		this->switch2Device();
+		cudaTask(this->data(), otherPtrs);
 	}
 };
 

@@ -1,20 +1,28 @@
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include "curand_kernel.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include <time.h>
+#include "cuda_api.h"
+#include "common.h"
 #include "CudaAlgorithmUtils.h"
 
 bool CudaAlgorithmUtils::noiseOmegaCulc(float* const &devOmegaI, float* const &devOmegaQ, const dim3 &blockNum, const dim3 &threadNum,
 	const unsigned int &pathNum, const float &maxFd, const float &deltaOmega){
-	if (pathNum == 0)
-		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-			StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(pathNum),
-			MacroUtils_VariableName(pathNum) + " must be greater than 0."));
-	if (devOmegaI == nullptr)
-		throw SystemException(SystemCodeEnum::NULL_POINTER,
-			StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(devOmegaI), "null."));
-	if (devOmegaQ == nullptr)
-		throw SystemException(SystemCodeEnum::NULL_POINTER,
-			StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(devOmegaQ), "null."));
+	//if (pathNum == 0)
+	//	throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
+	//		StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(pathNum),
+	//		MacroUtils_VariableName(pathNum) + " must be greater than 0."));
+	//if (devOmegaI == nullptr)
+	//	throw SystemException(SystemCodeEnum::NULL_POINTER,
+	//		StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(devOmegaI), "null."));
+	//if (devOmegaQ == nullptr)
+	//	throw SystemException(SystemCodeEnum::NULL_POINTER,
+	//		StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(devOmegaQ), "null."));
 
 	cudaNoiseOmegaCulc << <blockNum, threadNum >> >(devOmegaI, devOmegaQ, pathNum,
 		2 * M_PI*maxFd, (2 * M_PI - 2 * M_PI / (pathNum + 1)) / (pathNum - 1), deltaOmega);
@@ -24,26 +32,26 @@ bool CudaAlgorithmUtils::noiseOmegaCulc(float* const &devOmegaI, float* const &d
 bool CudaAlgorithmUtils::noiseSoSCulc(float* const &devCosValue, float* const &devSinValue, const dim3 &blockNum, const dim3 &threadNum,
 	const unsigned int &pitchWidth, const unsigned int &width, const unsigned int &heigth, const float &deltaT,
 	float* const &devOmegaI, float* const &devOmegaQ, float* const &devPhi) {
-	if (devCosValue == nullptr)
-		throw SystemException(SystemCodeEnum::NULL_POINTER,
-			StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(devCosValue), "null."));
-	if (devSinValue == nullptr)
-		throw SystemException(SystemCodeEnum::NULL_POINTER,
-			StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(devSinValue), "null."));
-	if (devOmegaI == nullptr)
-		throw SystemException(SystemCodeEnum::NULL_POINTER,
-			StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(devOmegaI), "null."));
-	if (devOmegaQ == nullptr)
-		throw SystemException(SystemCodeEnum::NULL_POINTER,
-			StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(devOmegaQ), "null."));
-	if (devPhi == nullptr)
-		throw SystemException(SystemCodeEnum::NULL_POINTER,
-			StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(devPhi), "null."));
+	//if (devCosValue == nullptr)
+	//	throw SystemException(SystemCodeEnum::NULL_POINTER,
+	//		StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(devCosValue), "null."));
+	//if (devSinValue == nullptr)
+	//	throw SystemException(SystemCodeEnum::NULL_POINTER,
+	//		StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(devSinValue), "null."));
+	//if (devOmegaI == nullptr)
+	//	throw SystemException(SystemCodeEnum::NULL_POINTER,
+	//		StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(devOmegaI), "null."));
+	//if (devOmegaQ == nullptr)
+	//	throw SystemException(SystemCodeEnum::NULL_POINTER,
+	//		StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(devOmegaQ), "null."));
+	//if (devPhi == nullptr)
+	//	throw SystemException(SystemCodeEnum::NULL_POINTER,
+	//		StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(devPhi), "null."));
 
 	cudaNoiseSoSCulc << <blockNum, threadNum >> >(devCosValue, devSinValue, 
 		pitchWidth, width, heigth, deltaT, devOmegaI, devOmegaQ, devPhi);
@@ -52,14 +60,14 @@ bool CudaAlgorithmUtils::noiseSoSCulc(float* const &devCosValue, float* const &d
 
 bool CudaAlgorithmUtils::noiseSoSSum(float* const &devCosValue, float* const &devSinValue, const dim3 &blockNum, const dim3 &threadNum,
 	const unsigned int &pitchWidth, const unsigned int &width, const unsigned int &heigth, const float &sumAmp){
-	if (devCosValue == nullptr)
-		throw SystemException(SystemCodeEnum::NULL_POINTER,
-			StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(devCosValue), "null."));
-	if (devSinValue == nullptr)
-		throw SystemException(SystemCodeEnum::NULL_POINTER,
-			StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
-			MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_FunctionName(), MacroUtils_VariableName(devSinValue), "null."));
+	//if (devCosValue == nullptr)
+	//	throw SystemException(SystemCodeEnum::NULL_POINTER,
+	//		StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(devCosValue), "null."));
+	//if (devSinValue == nullptr)
+	//	throw SystemException(SystemCodeEnum::NULL_POINTER,
+	//		StringUtils::format(SystemCodeEnum::NULL_POINTER.getInfo(),
+	//		MacroUtils_ClassName(CudaAlgorithmUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(devSinValue), "null."));
 
 	cudaNoiseSoSSum << <blockNum, threadNum >> >(devCosValue, devSinValue, pitchWidth, width, heigth, sumAmp);
 	return cudaSuccess == cudaGetLastError();

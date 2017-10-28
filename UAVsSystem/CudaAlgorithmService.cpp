@@ -1,3 +1,5 @@
+#include <sstream>
+#include "common.h"
 #include "CudaAlgorithmService.h"
 
 const unsigned int CudaAlgorithmService::MIN_PATH_NUM = 8;
@@ -95,9 +97,9 @@ float CudaAlgorithmService::getDeltaOmega() const{
 	return this->deltaOmega;
 }
 
-string CudaAlgorithmService::toString() const{
-	string str;
-	ostringstream ss;
+std::string CudaAlgorithmService::toString() const{
+	std::string str;
+	std::ostringstream ss;
 	ss << typeid(*this).name();
 	ss << "{";
 	ss << MacroUtils_VariableName(deviceId) << "=" << getDeviceId();

@@ -1,8 +1,10 @@
+#include <cstdarg>
+#include <memory>
 #include "StringUtils.h"
 
-string StringUtils::format(const string &_Format, ...){
+std::string StringUtils::format(const std::string &_Format, ...){
 	int final_n, n = ((int)_Format.size()) * 2;
-	unique_ptr<char[]> formatted;
+	std::unique_ptr<char[]> formatted;
 	va_list ap;
 	while (true) {
 		formatted.reset(new char[n]);
@@ -15,5 +17,5 @@ string StringUtils::format(const string &_Format, ...){
 		else
 			break;
 	}
-	return string(formatted.get());
+	return std::string(formatted.get());
 }

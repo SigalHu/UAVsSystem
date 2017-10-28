@@ -1,9 +1,5 @@
 ﻿#pragma once
 
-#include "cuda_runtime.h"
-#include "device_launch_parameters.h"
-#include "curand_kernel.h"
-
 #define BLOCK_DIM_X 32
 #define BLOCK_DIM_Y 8
 #define GRID_DIM_X 65535

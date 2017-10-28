@@ -1,3 +1,5 @@
+#pragma once
+
 enum FrequencyUnit{
 	Hz = 1,
 	KHz = 1000,

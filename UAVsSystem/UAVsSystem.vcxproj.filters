@@ -8,9 +8,6 @@
     <CudaCompile Include="CudaAlgorithmUtils.cu">
       <Filter>cuda\utils</Filter>
     </CudaCompile>
-    <CudaCompile Include="CudaCommonUtils.cu">
-      <Filter>cuda\utils</Filter>
-    </CudaCompile>
     <CudaCompile Include="CudaCoreUtils.cu">
       <Filter>cuda\utils</Filter>
     </CudaCompile>
@@ -18,6 +15,9 @@
       <Filter>cuda\utils</Filter>
     </CudaCompile>
     <CudaCompile Include="main.cpp" />
+    <CudaCompile Include="CudaRandUtils.cu">
+      <Filter>cuda\utils</Filter>
+    </CudaCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dev_noise.cuh">
@@ -36,9 +36,6 @@
       <Filter>cuda\task</Filter>
     </ClInclude>
     <ClInclude Include="CudaAlgorithmUtils.h">
-      <Filter>cuda\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="CudaCommonUtils.h">
       <Filter>cuda\utils</Filter>
     </ClInclude>
     <ClInclude Include="CudaCoreUtils.h">
@@ -118,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="cuda_api.h">
       <Filter>cuda\api</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaRandUtils.h">
+      <Filter>cuda\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

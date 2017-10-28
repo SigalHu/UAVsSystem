@@ -1,7 +1,9 @@
+#include "cuda_utils.h"
+#include "common.h"
 #include "DeviceManager.h"
 
 const unsigned int DeviceManager::DEFAULT_DEVICE_ID = 0;
-vector<unsigned int> DeviceManager::useCount(CudaUtils::getDeviceCount(), 0);
+std::vector<unsigned int> DeviceManager::useCount(CudaCoreUtils::getDeviceCount(), 0);
 
 DeviceManager::DeviceManager(){
 	setDeviceId(DEFAULT_DEVICE_ID);
@@ -24,7 +26,7 @@ DeviceManager::~DeviceManager(){
 void DeviceManager::setDeviceId(const unsigned int &deviceId){
 	if (deviceId >= DeviceManager::useCount.size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(deviceId),
+		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(deviceId),
 		MacroUtils_VariableName(deviceId).append(" must be less than the number of GPU devices."));
 	this->deviceId = deviceId;
 }
@@ -35,7 +37,7 @@ unsigned int DeviceManager::getDeviceId() const{
 
 void DeviceManager::releaseDevice() const{
 	switch2Device();
-	CudaUtils::resetDevice();
+	CudaCoreUtils::resetDevice();
 }
 
 void DeviceManager::incrUseCount(){
@@ -47,9 +49,9 @@ unsigned int DeviceManager::decrUseCountAndGet(){
 }
 
 void DeviceManager::switch2Device() const{
-	CudaUtils::setDevice(getDeviceId());
+	CudaCoreUtils::setDevice(getDeviceId());
 }
 
-string DeviceManager::getDeviceIdStr() const{
+std::string DeviceManager::getDeviceIdString() const{
 	return MacroUtils_VariableName(deviceId);
 }

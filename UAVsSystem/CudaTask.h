@@ -1,8 +1,6 @@
 #pragma once
-
-#include "cuda_api.h"
 #include <vector>
-using namespace std;
+#include "thrust\device_ptr.h"
 
 class CudaTask{
 private:
@@ -12,6 +10,6 @@ public:
 	CudaTask(const dim3 &blockDim, const dim3 &threadDim) :blockDim(blockDim), threadDim(threadDim){}
 	virtual ~CudaTask(){}
 
-	virtual void operator()(void* const &devPtr, const vector<void* const> &otherPtrs = {}) = 0;
+	virtual void operator()(const thrust::device_ptr<void> &devPtr, const std::vector<const thrust::device_ptr<void>> &otherPtrs = {}) = 0;
 };
 

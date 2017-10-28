@@ -1,9 +1,6 @@
 #pragma once
-
 #include <string>
-#include <sstream>
-#include "common.h"
-using namespace std;
+#include "FrequencyUnit.h"
 
 class CudaAlgorithmService{
 private:
@@ -43,5 +40,5 @@ public:
 	void setDeltaOmega(const float &deltaOmega);
 	float getDeltaOmega() const;
 
-	virtual string toString() const;
+	virtual std::string toString() const;
 };

@@ -1,6 +1,6 @@
 #include "SystemCode.h"
 
-SystemCode::SystemCode(const unsigned int &code, const string &info)
+SystemCode::SystemCode(const unsigned int &code, const std::string &info)
 :code(code),info(info){
 }
 
@@ -11,6 +11,6 @@ const unsigned int& SystemCode::getCode() const{
 	return this->code;
 }
 
-const string& SystemCode::getInfo() const{
+const std::string& SystemCode::getInfo() const{
 	return this->info;
 }

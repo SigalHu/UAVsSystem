@@ -1,3 +1,5 @@
+#include <sstream>
+#include "common.h"
 #include "CudaNoiseService.h"
 
 const float CudaNoiseService::DEFAULT_NOISE_POWER = 1;
@@ -33,9 +35,9 @@ float CudaNoiseService::getNoisePower() const{
 	return this->noisePower;
 }
 
-string CudaNoiseService::toString() const{
-	string str;
-	ostringstream ss;
+std::string CudaNoiseService::toString() const{
+	std::string str;
+	std::ostringstream ss;
 	ss << typeid(*this).name();
 	ss << "{";
 	ss << MacroUtils_VariableName(deviceId) << "=" << getDeviceId();

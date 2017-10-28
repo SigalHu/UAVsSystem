@@ -154,7 +154,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CudaCompile Include="CudaAlgorithmUtils.cu" />
-    <CudaCompile Include="CudaCommonUtils.cu" />
+    <CudaCompile Include="CudaRandUtils.cu" />
     <CudaCompile Include="CudaCoreUtils.cu" />
     <CudaCompile Include="CudaUtils.cu" />
     <CudaCompile Include="dev_noise.cu" />
@@ -181,7 +181,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="ComplexArray.h" />
     <ClInclude Include="ComplexRef.h" />
     <ClInclude Include="CudaAlgorithmUtils.h" />
-    <ClInclude Include="CudaCommonUtils.h" />
+    <ClInclude Include="CudaRandUtils.h" />
     <ClInclude Include="CudaCoreUtils.h" />
     <ClInclude Include="cuda.h" />
     <ClInclude Include="CudaMemoryService.h" />

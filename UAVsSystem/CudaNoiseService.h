@@ -1,5 +1,4 @@
 #pragma once
-
 #include "CudaAlgorithmService.h"
 
 class CudaNoiseService:public CudaAlgorithmService{
@@ -16,5 +15,5 @@ public:
 
 	void setNoisePower(const float &noisePower);
 	float getNoisePower() const;
-	string toString() const;
+	std::string toString() const;
 };

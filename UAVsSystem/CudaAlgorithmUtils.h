@@ -1,5 +1,4 @@
 #pragma once
-
 #include "CudaUtils.h"
 
 class CudaAlgorithmUtils :protected CudaUtils{

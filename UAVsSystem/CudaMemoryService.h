@@ -1,5 +1,4 @@
 #pragma once
-
 #include <stdexcept>
 #include <memory>
 #include "cuda.h"
@@ -29,15 +28,15 @@ private:
 public:
 	CudaMemoryService(const unsigned int &deviceId, const size_t &width)
 		:deviceId(deviceId), width(width * sizeof(_T)), height(1), pitch(width * sizeof(_T)), pos(0){
-		if (this->deviceId >= CudaUtils::getDeviceCount())
+		if (this->deviceId >= CudaCoreUtils::getDeviceCount())
 			throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
 				StringUtils::format(SystemCodeEnum::OUT_OF_RANGE.getInfo(),
-				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(deviceId), 
+				MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(deviceId), 
 				MacroUtils_VariableName(deviceId) + " must be less than the number of GPU devices."));
-		if (!CudaUtils::setDevice(this->deviceId))
+		if (!CudaCoreUtils::setDevice(this->deviceId))
 			throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
 				StringUtils::format(SystemCodeEnum::CUDA_RUNTIME_ERROR.getInfo(),
-				MacroUtils_ClassName(*this), MacroUtils_FunctionName(), MacroUtils_VariableName(deviceId),
+				MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(deviceId),
 				MacroUtils_VariableName(deviceId) + " must be less than the number of GPU devices."));
 		if (!CudaCoreUtils::malloc(&(this->ptr), this->width)){
 			throw bad_alloc();
@@ -47,9 +46,9 @@ public:
 
 	CudaMemoryService(const unsigned int &deviceId, const size_t &width, const size_t &height) throw(bad_alloc)
 		:deviceId(deviceId), width(width * sizeof(_T)), height(height), pos(0){
-		if (this->deviceId >= CudaUtils::getDeviceCount())
+		if (this->deviceId >= CudaCoreUtils::getDeviceCount())
 			throw bad_alloc();
-		if (!CudaUtils::setDevice(this->deviceId))
+		if (!CudaCoreUtils::setDevice(this->deviceId))
 			throw bad_alloc();
 		if (!CudaCoreUtils::mallocPitch(&(this->ptr), &(this->pitch), this->width, this->height)){
 			throw bad_alloc();
@@ -61,7 +60,7 @@ public:
 		if (this->ptr)
 			CudaCoreUtils::free(this->ptr);
 		if (--CudaMemoryService::useCount[this->deviceId] == 0)
-			CudaUtils::resetDevice();
+			CudaCoreUtils::resetDevice();
 	}
 
 	int getDeviceId() const{
@@ -103,7 +102,7 @@ public:
 	size_t read(void* const &dest, size_t nBytes) const throw(invalid_argument){
 		if (dest == nullptr)
 			throw invalid_argument(MacroUtils_VariableName(dest) + " can not be nullptr.");
-	//	if (!CudaUtils::setDevice(this->deviceId))
+	//	if (!CudaCoreUtils::setDevice(this->deviceId))
 			//throw runtime_error("GPU can not be set to " + 0 + ".");
 
 		if (this->height == 1){
@@ -148,11 +147,11 @@ public:
 			otherPtrs.emplace_back(item->getPtr());
 		}
 		
-		if (!CudaUtils::setDevice(this->deviceId))
+		if (!CudaCoreUtils::setDevice(this->deviceId))
 			throw invalid_argument("GPU memory reading failed.");
 		cudaTask(this->getPtr(), otherPtrs);
 	}
 };
 
 template<class _T>
-vector<unsigned int> CudaMemoryService<_T>::useCount(CudaUtils::getDeviceCount(),0);
+vector<unsigned int> CudaMemoryService<_T>::useCount(CudaCoreUtils::getDeviceCount(),0);

@@ -1,4 +1,7 @@
-﻿#include "dev_noise.cuh"
+﻿#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include "curand_kernel.h"
+#include "dev_noise.cuh"
 
 __global__ void cudaNoiseOmegaCulc(float *dev_omega_n_I, float *dev_omega_n_Q, unsigned int length,
 	float omega_amp, float delta_alpha, float delta_omega){

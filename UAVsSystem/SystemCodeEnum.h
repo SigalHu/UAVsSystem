@@ -1,5 +1,4 @@
 #pragma once
-
 #include "SystemCode.h"
 
 class SystemCodeEnum final{
