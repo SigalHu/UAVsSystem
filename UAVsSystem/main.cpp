@@ -4,14 +4,23 @@
 using namespace std;
 using namespace thrust;
 
+class A{
+public:
+	void fun(){
+		cout << typeid(*this).name() << endl;
+	}
+};
+
+class B :public A{
+public:
+	virtual void fun(){
+		cout << typeid(*this).name() << endl;
+	}
+};
+
 int main(){
-	HostVector<int> a;
-	a.reserve(1);
-	cout << a.capacity() << endl;
-	a.push_back(1);
-	cout << a.capacity() << endl;
-	a.push_back(2);
-	cout << a.capacity() << endl;
+	A &&a = B();
+	a.fun();
 //	CudaNoiseService service(1000,1000);
 //	cout << service.toString() << endl;
 

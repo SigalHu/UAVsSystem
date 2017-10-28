@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <CudaCompile Include="dev_noise.cu">
-      <Filter>cuda\task\api</Filter>
+      <Filter>cuda\api</Filter>
     </CudaCompile>
     <CudaCompile Include="test.cu" />
     <CudaCompile Include="CudaAlgorithmUtils.cu">
@@ -21,7 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dev_noise.cuh">
-      <Filter>cuda\task\api</Filter>
+      <Filter>cuda\api</Filter>
     </ClInclude>
     <ClInclude Include="CudaNoiseService.h">
       <Filter>service\algorithm</Filter>
@@ -46,9 +46,6 @@
     </ClInclude>
     <ClInclude Include="CudaUtils.h">
       <Filter>cuda\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="cuda_task_api.h">
-      <Filter>cuda\task\api</Filter>
     </ClInclude>
     <ClInclude Include="cuda_task.h">
       <Filter>cuda\task</Filter>
@@ -119,6 +116,9 @@
     <ClInclude Include="HostComplexArray.h">
       <Filter>cuda\definition</Filter>
     </ClInclude>
+    <ClInclude Include="cuda_api.h">
+      <Filter>cuda\api</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="service">
@@ -139,9 +139,6 @@
     <Filter Include="cuda\utils">
       <UniqueIdentifier>{076b6922-e357-4437-9c8c-a6263b84254d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cuda\task\api">
-      <UniqueIdentifier>{5d24fc17-e80f-491c-89db-8cad5f54754c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="common">
       <UniqueIdentifier>{a4df1937-b5b5-4fe4-b851-f8e2c519a309}</UniqueIdentifier>
     </Filter>
@@ -156,6 +153,9 @@
     </Filter>
     <Filter Include="cuda\definition">
       <UniqueIdentifier>{8ccc98fa-82e9-4d0e-a35c-f7d7d3e04d52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cuda\api">
+      <UniqueIdentifier>{5d24fc17-e80f-491c-89db-8cad5f54754c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

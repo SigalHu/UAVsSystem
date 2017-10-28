@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cuda_task.h"
+#include "cuda_api.h"
 #include "common.h"
 #define _USE_MATH_DEFINES
 #include <math.h>

@@ -80,11 +80,11 @@ public:
 		return this->imagVector[index];
 	}
 
-	HostVector<_T, _Alloc>& getRealArray() {
+	HostVector<_T, _Alloc>& getRealArray() const{
 		return this->realVector;
 	}
 
-	HostVector<_T, _Alloc>& getImagArray() {
+	HostVector<_T, _Alloc>& getImagArray() const{
 		return this->imagVector;
 	}
 
@@ -92,6 +92,10 @@ public:
 		size_t realSize = this->realVector.size();
 		size_t imagSize = this->imagVector.size();
 		return realSize < imagSize ? realSize : imagSize;
+	}
+
+	bool checkSize() const{
+		return this->realVector.size() == this->imagVector.size();
 	}
 
 	void resize(const size_t &size){

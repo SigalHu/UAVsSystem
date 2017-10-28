@@ -14,6 +14,8 @@ private:
 	void releaseDevice() const;
 	void incrUseCount();
 	unsigned int decrUseCountAndGet();
+private:
+	virtual void* getPtr() = 0;
 protected:
 	DeviceManager();
 	DeviceManager(const unsigned int &deviceId);

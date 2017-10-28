@@ -13,6 +13,10 @@ class HostVector;
 
 template<class _T, class _Alloc = device_malloc_allocator<_T>>
 class DeviceVector :public device_vector < _T, _Alloc >, virtual public DeviceManager {
+private:
+	void* getPtr() override{
+		return this->data();
+	}
 public:
 	DeviceVector()
 		:DeviceManager(), device_vector(){}
@@ -120,6 +124,20 @@ public:
 	//}
 
 	~DeviceVector(){
+	}
+
+	void call(const CudaTask& cudaTask, initializer_list<shared_ptr<DeviceManager>> others = {}){
+		vector<void*> otherPtrs;
+		otherPtrs.reserve(others.size());
+		for (const shared_ptr<DeviceManager> &item : others){
+			if (getDeviceId() != item->getDeviceId())
+				throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(*this), MacroUtils_FunctionName(), getDeviceIdStr(),
+				StringUtils::format(getDeviceIdStr().append("(=%d) is not equal to another ").append(getDeviceIdStr()).append("(=%d)."),
+				getDeviceId(), v.getDeviceId()));
+			otherPtrs.emplace_back(item->getPtr());
+		}
+
+		cudaTask(this->getPtr(), otherPtrs);
 	}
 };
 

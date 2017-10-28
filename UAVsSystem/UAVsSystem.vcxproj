@@ -177,7 +177,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="common_utils.h" />
     <ClInclude Include="cuda_definition.h" />
     <ClInclude Include="cuda_task.h" />
-    <ClInclude Include="cuda_task_api.h" />
+    <ClInclude Include="cuda_api.h" />
     <ClInclude Include="ComplexArray.h" />
     <ClInclude Include="ComplexRef.h" />
     <ClInclude Include="CudaAlgorithmUtils.h" />

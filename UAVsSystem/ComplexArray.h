@@ -83,11 +83,11 @@ public:
 		return this->imagArray[index];
 	}
 
-	valarray<_T>& getRealArray() {
+	valarray<_T>& getRealArray() const{
 		return this->realArray;
 	}
 
-	valarray<_T>& getImagArray() {
+	valarray<_T>& getImagArray() const{
 		return this->imagArray;
 	}
 
@@ -95,6 +95,10 @@ public:
 		size_t realSize = this->realArray.size();
 		size_t imagSize = this->imagArray.size();
 		return realSize < imagSize ? realSize : imagSize;
+	}
+
+	bool checkSize() const{
+		return this->realArray.size() == this->imagArray.size();
 	}
 
 	void resize(const size_t &size){
