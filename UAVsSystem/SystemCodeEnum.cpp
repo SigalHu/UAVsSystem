@@ -1,3 +1,4 @@
+#include "SystemCode.h"
 #include "SystemCodeEnum.h"
 
 const SystemCode SystemCodeEnum::CUDA_RUNTIME_ERROR(10000, "[%s::%s][Function %s] Cuda run error.\n[Error Detail] %s");

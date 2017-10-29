@@ -5,9 +5,6 @@
       <Filter>cuda\api</Filter>
     </CudaCompile>
     <CudaCompile Include="test.cu" />
-    <CudaCompile Include="CudaAlgorithmUtils.cu">
-      <Filter>cuda\utils</Filter>
-    </CudaCompile>
     <CudaCompile Include="CudaCoreUtils.cu">
       <Filter>cuda\utils</Filter>
     </CudaCompile>
@@ -16,6 +13,9 @@
     </CudaCompile>
     <CudaCompile Include="main.cpp" />
     <CudaCompile Include="CudaRandUtils.cu">
+      <Filter>cuda\utils</Filter>
+    </CudaCompile>
+    <CudaCompile Include="CudaSoSUtils.cu">
       <Filter>cuda\utils</Filter>
     </CudaCompile>
   </ItemGroup>
@@ -29,14 +29,8 @@
     <ClInclude Include="CudaAlgorithmService.h">
       <Filter>service\algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="CudaMemoryService.h">
-      <Filter>service\memory</Filter>
-    </ClInclude>
     <ClInclude Include="CudaTask.h">
       <Filter>cuda\task</Filter>
-    </ClInclude>
-    <ClInclude Include="CudaAlgorithmUtils.h">
-      <Filter>cuda\utils</Filter>
     </ClInclude>
     <ClInclude Include="CudaCoreUtils.h">
       <Filter>cuda\utils</Filter>
@@ -52,9 +46,6 @@
     </ClInclude>
     <ClInclude Include="service_algorithm.h">
       <Filter>service\algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="service_memory.h">
-      <Filter>service\memory</Filter>
     </ClInclude>
     <ClInclude Include="cuda.h">
       <Filter>cuda</Filter>
@@ -119,6 +110,9 @@
     <ClInclude Include="CudaRandUtils.h">
       <Filter>cuda\utils</Filter>
     </ClInclude>
+    <ClInclude Include="CudaSoSUtils.h">
+      <Filter>cuda\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="service">
@@ -126,9 +120,6 @@
     </Filter>
     <Filter Include="service\algorithm">
       <UniqueIdentifier>{a9026802-a5cd-46b9-a4d5-588fa93db128}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="service\memory">
-      <UniqueIdentifier>{a1e33670-fa8d-475c-8807-ea45b4e38a4a}</UniqueIdentifier>
     </Filter>
     <Filter Include="cuda">
       <UniqueIdentifier>{1ba57b5a-19a4-4338-8be1-bfd7064febcf}</UniqueIdentifier>
@@ -179,6 +170,24 @@
     </ClCompile>
     <ClCompile Include="DeviceManager.cpp">
       <Filter>cuda\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexRef.cpp">
+      <Filter>common\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexArray.cpp">
+      <Filter>common\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceVector.cpp">
+      <Filter>cuda\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="HostComplexArray.cpp">
+      <Filter>cuda\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="HostVector.cpp">
+      <Filter>cuda\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="CudaTask.cpp">
+      <Filter>cuda\task</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

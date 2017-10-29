@@ -1,5 +1,5 @@
 #pragma once
 #include "CudaUtils.h"
 #include "CudaRandUtils.h"
-#include "CudaAlgorithmUtils.h"
+#include "CudaSoSUtils.h"
 #include "CudaCoreUtils.h"

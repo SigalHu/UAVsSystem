@@ -1,7 +1,5 @@
-#include "cuda_runtime.h"
-#include "device_launch_parameters.h"
-#include "curand_kernel.h"
 #include "common.h"
+#include "cuda_runtime.h"
 #include "CudaCoreUtils.h"
 
 void CudaCoreUtils::setDevice(int device){

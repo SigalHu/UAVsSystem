@@ -2,15 +2,8 @@
 #include "cuda.h"
 #include "common.h"
 using namespace std;
-using namespace thrust;
 
 int main(){
-	shared_ptr<DeviceVector<int>> spdv = make_shared<DeviceVector<int>>(0,2,5);
-	DeviceVector<int> &dv = *spdv;
-	device_ptr<void> dp = dv.data();
-	for (int ii = 0; ii < dv.size(); ++ii){
-		cout << dv[ii] << endl;
-	}
 
 //	CudaNoiseService service(1000,1000);
 //	cout << service.toString() << endl;
@@ -23,7 +16,7 @@ int main(){
 	valarray<valarray<float>> noise(valarray<float>(len), 2);
 
 	start = clock();
-	isSucceed = CudaAlgorithmUtils::cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend, 2);
+	isSucceed = CudaSoSUtils::cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend, 2);
 	stop = clock();
 
 	if (isSucceed){

@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <exception>
-#include "SystemCode.h"
+
+class SystemCode;
 
 class SystemException final :public std::exception {
 private:

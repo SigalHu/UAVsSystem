@@ -1,4 +1,5 @@
 #include "StringUtils.h"
+#include "SystemCode.h"
 #include "SystemException.h"
 
 SystemException::SystemException(const SystemCode &code, const std::string &className,

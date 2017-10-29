@@ -1,10 +1,15 @@
 #pragma once
 #include "CudaUtils.h"
 
-class CudaAlgorithmUtils :protected CudaUtils{
+template<class _T, class _Alloc>
+class DeviceVector;
+
+class CudaSoSUtils :protected CudaUtils{
 public:
-	static bool noiseOmegaCulc(float* const &devOmegaI, float* const &devOmegaQ, const dim3 &blockNum, const dim3 &threadNum,
-		const unsigned int &pathNum, const float &maxFd, const float &deltaOmega);
+	template<class _Alloc>
+	static void noiseOmegaCulc(const dim3 &blockNum, const dim3 &threadNum,
+		DeviceVector<float, _Alloc> &devOmegaI, DeviceVector<float, _Alloc> &devOmegaQ,
+		const float &maxFd, const float &deltaOmega);
 
 	static bool noiseSoSCulc(float* const &devCosValue, float* const &devSinValue, const dim3 &blockNum, const dim3 &threadNum,
 		const unsigned int &pitchWidth, const unsigned int &width, const unsigned int &heigth, const float &deltaT,

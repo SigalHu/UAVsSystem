@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-#include "FrequencyUnit.h"
+
+enum FrequencyUnit;
 
 class CudaAlgorithmService{
 private:

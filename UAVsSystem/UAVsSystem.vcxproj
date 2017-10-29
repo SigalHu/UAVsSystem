@@ -153,7 +153,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CudaCompile Include="CudaAlgorithmUtils.cu" />
+    <CudaCompile Include="CudaSoSUtils.cu" />
     <CudaCompile Include="CudaRandUtils.cu" />
     <CudaCompile Include="CudaCoreUtils.cu" />
     <CudaCompile Include="CudaUtils.cu" />
@@ -162,9 +162,15 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <CudaCompile Include="test.cu" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ComplexArray.cpp" />
+    <ClCompile Include="ComplexRef.cpp" />
     <ClCompile Include="CudaNoiseService.cpp" />
     <ClCompile Include="CudaAlgorithmService.cpp" />
+    <ClCompile Include="CudaTask.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
+    <ClCompile Include="DeviceVector.cpp" />
+    <ClCompile Include="HostComplexArray.cpp" />
+    <ClCompile Include="HostVector.cpp" />
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="SystemCode.cpp" />
     <ClCompile Include="SystemCodeEnum.cpp" />
@@ -180,11 +186,10 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="cuda_api.h" />
     <ClInclude Include="ComplexArray.h" />
     <ClInclude Include="ComplexRef.h" />
-    <ClInclude Include="CudaAlgorithmUtils.h" />
+    <ClInclude Include="CudaSoSUtils.h" />
     <ClInclude Include="CudaRandUtils.h" />
     <ClInclude Include="CudaCoreUtils.h" />
     <ClInclude Include="cuda.h" />
-    <ClInclude Include="CudaMemoryService.h" />
     <ClInclude Include="CudaNoiseService.h" />
     <ClInclude Include="CudaAlgorithmService.h" />
     <ClInclude Include="CudaTask.h" />
@@ -199,7 +204,6 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="service.h" />
     <ClInclude Include="dev_noise.cuh" />
     <ClInclude Include="FrequencyUnit.h" />
-    <ClInclude Include="service_memory.h" />
     <ClInclude Include="StringUtils.h" />
     <ClInclude Include="SystemCode.h" />
     <ClInclude Include="SystemCodeEnum.h" />
