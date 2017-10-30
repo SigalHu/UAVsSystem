@@ -1,4 +1,5 @@
 #pragma once
+#include "cuda_runtime.h"
 #include "CudaUtils.h"
 
 template<class _T, class _Alloc>

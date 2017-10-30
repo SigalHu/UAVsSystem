@@ -1,7 +1,11 @@
-﻿#include "cuda_runtime.h"
-#include "device_launch_parameters.h"
+﻿#include "device_launch_parameters.h"
 #include "curand_kernel.h"
 #include "dev_noise.cuh"
+
+__global__ void cudaNoiseGeneWithSoS(float *dev_cos_value, float *dev_sin_value, unsigned int length, unsigned int path_num,
+	float omega_amp, float delta_alpha, float delta_omega){
+
+}
 
 __global__ void cudaNoiseOmegaCulc(float *dev_omega_n_I, float *dev_omega_n_Q, unsigned int length,
 	float omega_amp, float delta_alpha, float delta_omega){

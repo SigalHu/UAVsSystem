@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "cuda_runtime.h"
 
 #define BLOCK_DIM_X 32
 #define BLOCK_DIM_Y 8
