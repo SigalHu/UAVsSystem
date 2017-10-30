@@ -9,22 +9,22 @@ int main()
 {
 	clock_t start, stop;
 	bool isSucceed;
-	const float fs = pow(2,10);
-	const float time_spend = pow(2,16);
+	const float fs = 1000;
+	const float time_spend = 1000;
 	const unsigned int len = (unsigned int)(fs*time_spend);
 	valarray<valarray<float>> noise(valarray<float>(len), 2);
 
 	start = clock();
-	isSucceed = cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend, 1, 3);
+	isSucceed = cudaNoiseGeneWithSoS(&noise[0][0], &noise[1][0], fs, time_spend);
 	stop = clock();
 
 	if (isSucceed){
-		FILE *fp = fopen("F:/SigalHu/UAVsSystem/Matlab/noise.bin", "wb");
-		if (fp){
-			fwrite(&noise[0][0], sizeof(float), noise[0].size(), fp);
-			fwrite(&noise[1][0], sizeof(float), noise[1].size(), fp);
-			fclose(fp);
-		}
+		//FILE *fp = fopen("F:/SigalHu/UAVsSystem/Matlab/noise.bin", "wb");
+		//if (fp){
+		//	fwrite(&noise[0][0], sizeof(float), noise[0].size(), fp);
+		//	fwrite(&noise[1][0], sizeof(float), noise[1].size(), fp);
+		//	fclose(fp);
+		//}
 
 		//for (valarray<float> &ii : noise){
 		//	for (float &jj : ii){
