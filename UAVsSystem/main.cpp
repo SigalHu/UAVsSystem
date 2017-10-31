@@ -17,7 +17,7 @@ int main(){
 	}
 	cout << endl;
 
-	cudaNoiseGeneWithSoS << <1, vc1.size() >> >(raw_pointer_cast(vc1.data()), raw_pointer_cast(vc2.data()), vc1.size(), vc1.size(), 0/*time(NULL)*/, 1, 1, 1, 1);
+	//cudaNoiseGeneWithSoS << <1, vc1.size() >> >(raw_pointer_cast(vc1.data()), raw_pointer_cast(vc2.data()), vc1.size(), vc1.size(), 0/*time(NULL)*/, 1, 1, 1, 1);
 
 	for (float aa : vc1){
 		cout << aa << " ";

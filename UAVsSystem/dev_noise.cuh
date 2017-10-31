@@ -6,8 +6,7 @@
 #define GRID_DIM_X 65535
 
 __global__ void cudaNoiseGeneWithSoS(float *dev_cos_value, float *dev_sin_value, unsigned int length, unsigned int path_num,
-	unsigned long long uniform_seed, float omega_amp, float delta_alpha, float delta_omega,
-	float delta_t);
+	unsigned long long uniform_seed, float omega_amp, float delta_alpha, float delta_omega, float delta_t, float sum_amp);
 
 __global__ void cudaNoiseOmegaCulc(float *dev_omega_n_I, float *dev_omega_n_Q, unsigned int length,
 	float omega_amp, float delta_alpha, float delta_omega);
