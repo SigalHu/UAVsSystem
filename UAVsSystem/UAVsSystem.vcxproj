@@ -162,15 +162,15 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <CudaCompile Include="test.cu" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ComplexArray.cpp" />
-    <ClCompile Include="ComplexRef.cpp" />
+    <ClCompile Include="ComplexArray.hpp" />
+    <ClCompile Include="ComplexRef.hpp" />
     <ClCompile Include="CudaNoiseService.cpp" />
     <ClCompile Include="CudaAlgorithmService.cpp" />
     <ClCompile Include="CudaTask.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
-    <ClCompile Include="DeviceVector.cpp" />
-    <ClCompile Include="HostComplexArray.cpp" />
-    <ClCompile Include="HostVector.cpp" />
+    <ClCompile Include="DeviceVector.hpp" />
+    <ClCompile Include="HostComplexArray.hpp" />
+    <ClCompile Include="HostVector.hpp" />
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="SystemCode.cpp" />
     <ClCompile Include="SystemCodeEnum.cpp" />

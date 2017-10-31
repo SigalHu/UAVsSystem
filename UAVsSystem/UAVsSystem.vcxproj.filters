@@ -171,23 +171,23 @@
     <ClCompile Include="DeviceManager.cpp">
       <Filter>cuda\definition</Filter>
     </ClCompile>
-    <ClCompile Include="ComplexRef.cpp">
-      <Filter>common\definition</Filter>
-    </ClCompile>
-    <ClCompile Include="ComplexArray.cpp">
-      <Filter>common\definition</Filter>
-    </ClCompile>
-    <ClCompile Include="DeviceVector.cpp">
-      <Filter>cuda\definition</Filter>
-    </ClCompile>
-    <ClCompile Include="HostComplexArray.cpp">
-      <Filter>cuda\definition</Filter>
-    </ClCompile>
-    <ClCompile Include="HostVector.cpp">
-      <Filter>cuda\definition</Filter>
-    </ClCompile>
     <ClCompile Include="CudaTask.cpp">
       <Filter>cuda\task</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexArray.hpp">
+      <Filter>common\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexRef.hpp">
+      <Filter>common\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceVector.hpp">
+      <Filter>cuda\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="HostComplexArray.hpp">
+      <Filter>cuda\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="HostVector.hpp">
+      <Filter>cuda\definition</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

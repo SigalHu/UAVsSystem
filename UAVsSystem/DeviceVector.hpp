@@ -157,7 +157,7 @@ DeviceVector<_T, _Alloc>::~DeviceVector(){
 }
 
 template<class _T, class _Alloc>
-void DeviceVector<_T, _Alloc>::call(const CudaTask &cudaTask, std::initializer_list<std::shared_ptr<DeviceManager>> others = {}){
+void DeviceVector<_T, _Alloc>::call(const CudaTask &cudaTask, std::initializer_list<std::shared_ptr<DeviceManager>> others){
 	std::vector<thrust::device_ptr<void>> otherPtrs;
 	otherPtrs.reserve(others.size());
 

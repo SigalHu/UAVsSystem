@@ -14,26 +14,26 @@ public:
 	HostVector(const HostVector &v);
 	HostVector(HostVector &&v);
 
-	HostVector& operator=(const HostVector &v);
-	HostVector& operator=(HostVector &&v);
+	HostVector<_T, _Alloc>& operator=(const HostVector &v);
+	HostVector<_T, _Alloc>& operator=(HostVector &&v);
 
 	template<class _OtherT, class _OtherAlloc>
 	HostVector(const HostVector<_OtherT, _OtherAlloc> &v);
 
 	template<class _OtherT, class _OtherAlloc>
-	HostVector& operator=(const HostVector<_OtherT, _OtherAlloc> &v);
+	HostVector<_T, _Alloc>& operator=(const HostVector<_OtherT, _OtherAlloc> &v);
 
 	template<class _OtherT, class _OtherAlloc>
 	HostVector(const std::vector<_OtherT, _OtherAlloc> &v);
 
 	template<class _OtherT, class _OtherAlloc>
-	HostVector &operator=(const std::vector<_OtherT, _OtherAlloc> &v);
+	HostVector<_T, _Alloc>& operator=(const std::vector<_OtherT, _OtherAlloc> &v);
 
 	template<class _OtherT, class _OtherAlloc>
 	HostVector(const DeviceVector<_OtherT, _OtherAlloc> &v);
 
 	template<class _OtherT, class _OtherAlloc>
-	HostVector &operator=(const DeviceVector<_OtherT, _OtherAlloc> &v);
+	HostVector<_T, _Alloc>& operator=(const DeviceVector<_OtherT, _OtherAlloc> &v);
 
 	template<class InputIterator>
 	HostVector(InputIterator first, InputIterator last);

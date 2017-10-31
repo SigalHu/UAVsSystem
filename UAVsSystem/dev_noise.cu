@@ -5,7 +5,7 @@
 __global__ void cudaNoiseGeneWithSoS(float *dev_cos_value, float *dev_sin_value, unsigned int length, unsigned int path_num,
 	unsigned long long uniform_seed, float omega_amp, float delta_alpha, float delta_omega,
 	float delta_t){
-	extern __shared__ float _sha[];
+	//extern __shared__ float _sha[];
 	unsigned int tidx = blockIdx.x * blockDim.x + threadIdx.x;
 	unsigned int tidy = blockIdx.y * blockDim.y + threadIdx.y;
 
@@ -20,13 +20,16 @@ __global__ void cudaNoiseGeneWithSoS(float *dev_cos_value, float *dev_sin_value,
 	float phi_n_I = curand_uniform(&rand_status);
 	float phi_n_Q = curand_uniform(&rand_status);
 
-	float *cos_value = _sha, *sin_value = _sha + path_num;
-	unsigned int y_step = gridDim.y * blockDim.x * gridDim.x / path_num;
-	for (; y < length; y += y_step){
-		cos_value[x] = cosf(omega_n_I * delta_t*y + 2 * CR_CUDART_PI*phi_n_I);
-		sin_value[x] = sinf(omega_n_Q * delta_t*y + 2 * CR_CUDART_PI*phi_n_Q);
-		__syncthreads();
-	}
+	dev_cos_value[x] = phi_n_I;
+	dev_sin_value[x] = phi_n_Q;
+
+	//float *cos_value = _sha, *sin_value = _sha + path_num;
+	//unsigned int y_step = gridDim.y * blockDim.x * gridDim.x / path_num;
+	//for (; y < length; y += y_step){
+	//	cos_value[x] = cosf(omega_n_I * delta_t*y + 2 * CR_CUDART_PI*phi_n_I);
+	//	sin_value[x] = sinf(omega_n_Q * delta_t*y + 2 * CR_CUDART_PI*phi_n_Q);
+	//	__syncthreads();
+	//}
 }
 
 __global__ void cudaNoiseOmegaCulc(float *dev_omega_n_I, float *dev_omega_n_Q, unsigned int length,
