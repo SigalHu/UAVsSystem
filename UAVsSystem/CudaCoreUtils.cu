@@ -2,11 +2,15 @@
 #include "cuda_runtime.h"
 #include "CudaCoreUtils.h"
 
+std::string CudaCoreUtils::getClassName(){
+	return MacroUtils_ClassName(CudaCoreUtils);
+}
+
 void CudaCoreUtils::setDevice(int device){
 	cudaError_t error = cudaSetDevice(device);
 	if (cudaSuccess != error)
 		throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
-		MacroUtils_ClassName(CudaCoreUtils), MacroUtils_CurFunctionName(), 
+		getClassName(), MacroUtils_CurFunctionName(),
 		MacroUtils_FunctionName(cudaSetDevice), cudaGetErrorString(error));
 }
 
@@ -14,7 +18,7 @@ void CudaCoreUtils::resetDevice(){
 	cudaError_t error = cudaDeviceReset();
 	if (cudaSuccess != error)
 		throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
-		MacroUtils_ClassName(CudaCoreUtils), MacroUtils_CurFunctionName(), 
+		getClassName(), MacroUtils_CurFunctionName(),
 		MacroUtils_FunctionName(cudaDeviceReset), cudaGetErrorString(error));
 }
 
@@ -23,7 +27,7 @@ int CudaCoreUtils::getDeviceCount(){
 	cudaError_t error = cudaGetDeviceCount(&count);
 	if (cudaSuccess != error)
 		throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
-		MacroUtils_ClassName(CudaCoreUtils), MacroUtils_CurFunctionName(), 
+		getClassName(), MacroUtils_CurFunctionName(),
 		MacroUtils_FunctionName(cudaGetDeviceCount), cudaGetErrorString(error));
 	return count;
 }
@@ -32,7 +36,7 @@ void CudaCoreUtils::getDeviceProperties(int device, cudaDeviceProp &prop){
 	cudaError_t error = cudaGetDeviceProperties(&prop, device);
 	if (cudaSuccess != error)
 		throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
-		MacroUtils_ClassName(CudaCoreUtils), MacroUtils_CurFunctionName(), 
+		getClassName(), MacroUtils_CurFunctionName(),
 		MacroUtils_FunctionName(cudaGetDeviceProperties), cudaGetErrorString(error));
 }
 

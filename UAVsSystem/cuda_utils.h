@@ -3,3 +3,4 @@
 #include "CudaRandUtils.h"
 #include "CudaSoSUtils.h"
 #include "CudaCoreUtils.h"
+#include "CudaAsyncUtils.h"

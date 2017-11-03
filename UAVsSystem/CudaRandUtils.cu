@@ -4,7 +4,11 @@
 #include "DeviceVector.h"
 #include "CudaRandUtils.h"
 
-std::string CudaRandUtils::getStatusString(curandStatus_t status){
+std::string CudaRandUtils::getClassName(){
+	return MacroUtils_ClassName(CudaRandUtils);
+}
+
+std::string CudaRandUtils::getStatusStr(curandStatus_t status){
 	switch (status){
 	case CURAND_STATUS_SUCCESS:
 		return "No errors.";
@@ -41,14 +45,14 @@ void CudaRandUtils::createGenerator(curandGenerator_t &generator, curandRngType_
 	curandStatus_t status = curandCreateGenerator(&generator, rng_type);
 	if (CURAND_STATUS_SUCCESS != status)
 		throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
-		MacroUtils_ClassName(CudaRandUtils), MacroUtils_CurFunctionName(),
-		MacroUtils_FunctionName(curandCreateGenerator), getStatusString(status));
+		getClassName(), MacroUtils_CurFunctionName(),
+		MacroUtils_FunctionName(curandCreateGenerator), getStatusStr(status));
 
 	status = curandSetPseudoRandomGeneratorSeed(generator, time(NULL));
 	if (CURAND_STATUS_SUCCESS != status)
 		throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
-		MacroUtils_ClassName(CudaRandUtils), MacroUtils_CurFunctionName(),
-		MacroUtils_FunctionName(curandSetPseudoRandomGeneratorSeed), getStatusString(status));
+		getClassName(), MacroUtils_CurFunctionName(),
+		MacroUtils_FunctionName(curandSetPseudoRandomGeneratorSeed), getStatusStr(status));
 }
 
 template<class _Alloc>
@@ -59,8 +63,8 @@ void CudaRandUtils::generateNormal(DeviceVector<float, _Alloc> &vector, float me
 	curandStatus_t status = curandGenerateNormal(generator, raw_pointer_cast(vector.data()), vector.size(), mean, stddev);
 	if (CURAND_STATUS_SUCCESS != status)
 		throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
-		MacroUtils_ClassName(CudaRandUtils), MacroUtils_CurFunctionName(),
-		MacroUtils_FunctionName(curandGenerateNormal), getStatusString(status));
+		getClassName(), MacroUtils_CurFunctionName(),
+		MacroUtils_FunctionName(curandGenerateNormal), getStatusStr(status));
 }
 
 template<class _Alloc>
@@ -71,8 +75,8 @@ void CudaRandUtils::generateUniform(DeviceVector<float, _Alloc> &vector){
 	curandStatus_t status = curandGenerateUniform(generator, raw_pointer_cast(vector.data()), vector.size());
 	if (CURAND_STATUS_SUCCESS != status)
 		throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
-		MacroUtils_ClassName(CudaRandUtils), MacroUtils_CurFunctionName(),
-		MacroUtils_FunctionName(curandGenerateUniform), getStatusString(status));
+		getClassName(), MacroUtils_CurFunctionName(),
+		MacroUtils_FunctionName(curandGenerateUniform), getStatusStr(status));
 }
 
 bool CudaRandUtils::cudaNoiseGene(float *noise_I, float *noise_Q, size_t length, float mean, float stddev){

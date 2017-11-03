@@ -8,21 +8,25 @@
 #include "cuda_api.h"
 #include "CudaSoSUtils.h"
 
+std::string CudaSoSUtils::getClassName(){
+	return MacroUtils_ClassName(CudaSoSUtils);
+}
+
 template<class _Alloc>
 void CudaSoSUtils::noiseGene(DeviceVector<float, _Alloc> &noiseI, DeviceVector<float, _Alloc> &noiseQ, const float &fs,
 	const float &avgPower, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega){
 	if (noiseI.empty() || noiseQ.empty())
-		throw SystemException(SystemCodeEnum::OUT_OF_RANGE, MacroUtils_ClassName(CudaSoSUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(noiseI),
+		throw SystemException(SystemCodeEnum::OUT_OF_RANGE, getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(noiseI),
 		MacroUtils_VariableName(noiseI).append(" and ").append(MacroUtils_VariableName(noiseQ)).append(" can not be empty."));
 	if (noiseI.size() != noiseQ.size())
-		throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(CudaSoSUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(noiseI),
+		throw SystemException(SystemCodeEnum::NOT_EQUAL, getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(noiseI),
 		StringUtils::format(MacroUtils_VariableName(noiseI).append("(size=%d) is not equal to ").append(MacroUtils_VariableName(noiseQ)).append("(size=%d)."),
 		noiseI.size(), noiseQ.size()));
 	unsigned int tmp = 1;
 	while (tmp < pathNum)
 		tmp <<= 1;
 	if (pathNum != tmp)
-		throw SystemException(SystemCodeEnum::NOT_EQUAL, MacroUtils_ClassName(CudaSoSUtils), MacroUtils_CurFunctionName(), MacroUtils_VariableName(pathNum),
+		throw SystemException(SystemCodeEnum::NOT_EQUAL, getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(pathNum),
 		StringUtils::format(MacroUtils_VariableName(pathNum).append("(=%d) is not equal to pow(2,n)."), pathNum));
 
 	float omegaAmp = 2 * M_PI*maxFd;
@@ -49,7 +53,7 @@ void CudaSoSUtils::noiseGene(DeviceVector<float, _Alloc> &noiseI, DeviceVector<f
 
 	cudaError_t error = cudaGetLastError();
 	if (cudaSuccess != error)
-		throw SystemException(SystemCodeEnum::CUDA_CALL_ERROR, MacroUtils_ClassName(CudaSoSUtils), MacroUtils_CurFunctionName(),
+		throw SystemException(SystemCodeEnum::CUDA_CALL_ERROR, getClassName(), MacroUtils_CurFunctionName(),
 		MacroUtils_FunctionName(cudaNoiseGeneWithSoS), cudaGetErrorString(error));
 }
 //

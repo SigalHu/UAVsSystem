@@ -3,6 +3,11 @@
 #include "HostComplexArray.h"
 
 template<class _T, class _Alloc>
+std::string HostComplexArray<_T, _Alloc>::getClassName(){
+	return MacroUtils_ClassName(HostComplexArray);
+}
+
+template<class _T, class _Alloc>
 HostComplexArray<_T, _Alloc>::HostComplexArray(const size_t &size){
 	this->resize(size);
 }
@@ -21,7 +26,7 @@ template<class _T, class _Alloc>
 ComplexRef<_T>& HostComplexArray<_T, _Alloc>::operator[](const size_t& _Off) {
 	if (_Off >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(_Off), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(_Off), "null.");
 	upCurrentItem.reset(new ComplexRef<_T>(this->realVector[_Off], this->imagVector[_Off]));
 	return (*upCurrentItem);
 }
@@ -30,7 +35,7 @@ template<class _T, class _Alloc>
 void HostComplexArray<_T, _Alloc>::set(const size_t& index, const std::complex<_T>& value) {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	this->realVector[index] = value.real();
 	this->imagVector[index] = value.imag();
 }
@@ -39,7 +44,7 @@ template<class _T, class _Alloc>
 std::complex<_T> HostComplexArray<_T, _Alloc>::get(const size_t& index) const {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	return std::complex<_T>(this->realVector[index], this->imagVector[index]);
 }
 
@@ -47,7 +52,7 @@ template<class _T, class _Alloc>
 void HostComplexArray<_T, _Alloc>::setReal(const size_t& index, const _T &value) {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	this->realVector[index] = value;
 }
 
@@ -55,7 +60,7 @@ template<class _T, class _Alloc>
 _T HostComplexArray<_T, _Alloc>::getReal(const size_t& index) const {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	return this->realVector[index];
 }
 
@@ -63,7 +68,7 @@ template<class _T, class _Alloc>
 void HostComplexArray<_T, _Alloc>::setImag(const size_t& index, const _T &value) {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	this->imagVector[index] = value;
 }
 
@@ -71,7 +76,7 @@ template<class _T, class _Alloc>
 _T HostComplexArray<_T, _Alloc>::getImag(const size_t& index) const {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	return this->imagVector[index];
 }
 

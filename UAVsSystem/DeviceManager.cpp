@@ -23,10 +23,14 @@ DeviceManager::~DeviceManager(){
 	}
 }
 
+std::string DeviceManager::getClassName() const{
+	return MacroUtils_ClassName(DeviceManager);
+}
+
 void DeviceManager::setDeviceId(const unsigned int &deviceId){
 	if (deviceId >= DeviceManager::useCount.size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(deviceId),
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(deviceId),
 		MacroUtils_VariableName(deviceId).append(" must be less than the number of GPU devices."));
 	this->deviceId = deviceId;
 }
@@ -52,6 +56,6 @@ void DeviceManager::switch2Device() const{
 	CudaCoreUtils::setDevice(getDeviceId());
 }
 
-std::string DeviceManager::getDeviceIdString() const{
+std::string DeviceManager::getDeviceIdStr() const{
 	return MacroUtils_VariableName(deviceId);
 }

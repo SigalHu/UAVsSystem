@@ -1,30 +1,42 @@
-#include <sstream>
 #include "common.h"
 #include "CudaNoiseService.h"
 
 const float CudaNoiseService::DEFAULT_NOISE_POWER = 1;
 
+CudaNoiseService::CudaNoiseService()
+:CudaSoSService(){
+	setNoisePower(DEFAULT_NOISE_POWER);
+}
+
 CudaNoiseService::CudaNoiseService(const int &deviceId)
-:CudaAlgorithmService(deviceId){
+:CudaSoSService(deviceId){
 	setNoisePower(DEFAULT_NOISE_POWER);
 }
 
 CudaNoiseService::CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend)
-:CudaAlgorithmService(deviceId, fs, timeSpend){
+:CudaSoSService(deviceId, fs, timeSpend){
 	setNoisePower(DEFAULT_NOISE_POWER);
 }
 
 CudaNoiseService::CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega)
-: CudaAlgorithmService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
+: CudaSoSService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
 	setNoisePower(DEFAULT_NOISE_POWER);
 }
 
 CudaNoiseService::CudaNoiseService(const int &deviceId, const float &fs, const float &timeSpend, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega, const float &noisePower)
-: CudaAlgorithmService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
+: CudaSoSService(deviceId, fs, timeSpend, pathNum, maxFd, deltaOmega){
 	setNoisePower(noisePower);
 }
 
 CudaNoiseService::~CudaNoiseService(){
+}
+
+std::string CudaNoiseService::getClassName(){
+	return MacroUtils_ClassName(CudaNoiseService);
+}
+
+std::string CudaNoiseService::getNoisePowerStr() const{
+	return MacroUtils_VariableName(noisePower);
 }
 
 void CudaNoiseService::setNoisePower(const float &noisePower){
@@ -36,23 +48,7 @@ float CudaNoiseService::getNoisePower() const{
 }
 
 std::string CudaNoiseService::toString() const{
-	std::string str;
-	std::ostringstream ss;
-	ss << typeid(*this).name();
-	ss << "{";
-	ss << MacroUtils_VariableName(deviceId) << "=" << getDeviceId();
-	ss << ",";
-	ss << MacroUtils_VariableName(pathNum) << "=" << getPathNum();
-	ss << ",";
-	ss << MacroUtils_VariableName(fs) << "=" << getFs();
-	ss << ",";
-	ss << MacroUtils_VariableName(timeSpend) << "=" << getTimeSpend();
-	ss << ",";
-	ss << MacroUtils_VariableName(maxFd) << "=" << getMaxFd();
-	ss << ",";
-	ss << MacroUtils_VariableName(deltaOmega) << "=" << getDeltaOmega();
-	ss << ",";
-	ss << MacroUtils_VariableName(noisePower) << "=" << getNoisePower();
-	ss << "}";
-	return ss.str();
+	return StringUtils::format(getClassName().append("[").append(CudaSoSService::toString()).append(", ")
+		.append(getNoisePowerStr()).append(" = %f]"),
+		getNoisePower());
 }

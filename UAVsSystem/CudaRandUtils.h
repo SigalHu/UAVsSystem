@@ -8,7 +8,8 @@ class DeviceVector;
 
 class CudaRandUtils :protected CudaUtils{
 private:
-	static std::string getStatusString(curandStatus_t status);
+	static std::string getClassName();
+	static std::string getStatusStr(curandStatus_t status);
 
 	static void createGenerator(curandGenerator_t &generator, curandRngType_t rng_type);
 public:

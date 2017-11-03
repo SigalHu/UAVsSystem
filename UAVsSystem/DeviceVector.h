@@ -12,6 +12,8 @@ class CudaTask;
 template<class _T, class _Alloc = thrust::device_malloc_allocator<_T>>
 class DeviceVector :public thrust::device_vector < _T, _Alloc >, virtual public DeviceManager {
 private:
+	static std::string getClassName();
+
 	const thrust::device_ptr<void> getPtr() override;
 public:
 	DeviceVector();

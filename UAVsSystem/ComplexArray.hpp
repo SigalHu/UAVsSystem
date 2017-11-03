@@ -1,3 +1,5 @@
+#include "common_exception.h"
+#include "common_utils.h"
 #include "ComplexRef.h"
 #include "ComplexArray.h"
 
@@ -17,10 +19,15 @@ ComplexArray<_T>::ComplexArray(const size_t &size, const _T &real, const _T &ima
 }
 
 template<class _T>
+std::string ComplexArray<_T>::getClassName(){
+	return MacroUtils_ClassName(ComplexArray);
+}
+
+template<class _T>
 ComplexRef<_T>& ComplexArray<_T>::operator[](const size_t& _Off) {
 	if (_Off >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(_Off), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(_Off), "null.");
 	upCurrentItem.reset(new ComplexRef<_T>(this->realArray[_Off], this->imagArray[_Off]));
 	return (*upCurrentItem);
 }
@@ -29,7 +36,7 @@ template<class _T>
 void ComplexArray<_T>::set(const size_t& index, const std::complex<_T>& value) {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	this->realArray[index] = value.real();
 	this->imagArray[index] = value.imag();
 }
@@ -38,7 +45,7 @@ template<class _T>
 std::complex<_T> ComplexArray<_T>::get(const size_t& index) const {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	return std::complex<_T>(this->realArray[index], this->imagArray[index]);
 }
 
@@ -46,7 +53,7 @@ template<class _T>
 void ComplexArray<_T>::setReal(const size_t& index, const _T &value) {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	this->realArray[index] = value;
 }
 
@@ -54,7 +61,7 @@ template<class _T>
 _T ComplexArray<_T>::getReal(const size_t& index) const {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	return this->realArray[index];
 }
 
@@ -62,7 +69,7 @@ template<class _T>
 void ComplexArray<_T>::setImag(const size_t& index, const _T &value) {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	this->imagArray[index] = value;
 }
 
@@ -70,7 +77,7 @@ template<class _T>
 _T ComplexArray<_T>::getImag(const size_t& index) const {
 	if (index >= this->size())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE,
-		MacroUtils_ClassName(*this), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
+		getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(index), "null.");
 	return this->imagArray[index];
 }
 

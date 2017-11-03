@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <memory>
 #include <complex>
 
@@ -14,6 +15,8 @@ private:
 	HostVector<_T, _Alloc> realVector;
 	HostVector<_T, _Alloc> imagVector;
 	std::unique_ptr<ComplexRef<_T>> upCurrentItem;
+private:
+	static std::string getClassName();
 public:
 	HostComplexArray(const size_t &size);
 	HostComplexArray(const size_t &size, const _T &value);

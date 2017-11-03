@@ -8,6 +8,8 @@ class DeviceVector;
 class CudaSoSUtils :protected CudaUtils{
 private:
 	static const int THREAD_NUM_PER_BLOCK = 256;
+private:
+	static std::string getClassName();
 public:
 	template<class _Alloc>
 	static void noiseGene(DeviceVector<float, _Alloc> &noiseI, DeviceVector<float, _Alloc> &noiseQ, const float &fs = 1000000,

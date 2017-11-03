@@ -13,6 +13,8 @@ private:
 	std::valarray<_T> realArray;
 	std::valarray<_T> imagArray;
 	std::unique_ptr<ComplexRef<_T>> upCurrentItem;
+private:
+	static std::string getClassName();
 public:
 	ComplexArray(const size_t &size);
 	ComplexArray(const size_t &size, const _T &value);

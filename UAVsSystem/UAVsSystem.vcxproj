@@ -164,8 +164,12 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <ClCompile Include="ComplexArray.hpp" />
     <ClCompile Include="ComplexRef.hpp" />
+    <ClCompile Include="CudaAsyncService.cpp" />
+    <ClCompile Include="CudaAsyncUtils.cu" />
+    <ClCompile Include="CudaCommonService.cpp" />
     <ClCompile Include="CudaNoiseService.cpp" />
-    <ClCompile Include="CudaAlgorithmService.cpp" />
+    <ClCompile Include="CudaService.cpp" />
+    <ClCompile Include="CudaSoSService.cpp" />
     <ClCompile Include="CudaTask.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="DeviceVector.hpp" />
@@ -181,6 +185,12 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="common_definition.h" />
     <ClInclude Include="common_exception.h" />
     <ClInclude Include="common_utils.h" />
+    <ClInclude Include="CudaAsyncService.h" />
+    <ClInclude Include="CudaAsyncUtils.h" />
+    <ClInclude Include="CudaCommonService.h" />
+    <ClInclude Include="CudaNoiseService.h" />
+    <ClInclude Include="CudaService.h" />
+    <ClInclude Include="CudaSoSService.h" />
     <ClInclude Include="cuda_definition.h" />
     <ClInclude Include="cuda_task.h" />
     <ClInclude Include="cuda_api.h" />
@@ -190,8 +200,6 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="CudaRandUtils.h" />
     <ClInclude Include="CudaCoreUtils.h" />
     <ClInclude Include="cuda.h" />
-    <ClInclude Include="CudaNoiseService.h" />
-    <ClInclude Include="CudaAlgorithmService.h" />
     <ClInclude Include="CudaTask.h" />
     <ClInclude Include="CudaUtils.h" />
     <ClInclude Include="cuda_utils.h" />
@@ -200,7 +208,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="HostComplexArray.h" />
     <ClInclude Include="HostVector.h" />
     <ClInclude Include="MacroUtils.h" />
-    <ClInclude Include="service_algorithm.h" />
+    <ClInclude Include="service_cuda.h" />
     <ClInclude Include="service.h" />
     <ClInclude Include="dev_noise.cuh" />
     <ClInclude Include="FrequencyUnit.h" />

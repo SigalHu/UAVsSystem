@@ -9,11 +9,14 @@ private:
 	static std::vector<unsigned int> useCount;
 	unsigned int deviceId;
 private:
+	std::string getClassName() const;
+
 	void setDeviceId(const unsigned int &deviceId);
 	void releaseDevice() const;
+
 	void incrUseCount();
 	unsigned int decrUseCountAndGet();
-private:
+
 	virtual const thrust::device_ptr<void> getPtr() = 0;
 protected:
 	DeviceManager();
@@ -21,7 +24,7 @@ protected:
 	virtual ~DeviceManager() = 0;
 	void switch2Device() const;
 
-	std::string getDeviceIdString() const;
+	std::string getDeviceIdStr() const;
 public:
 	unsigned int getDeviceId() const;
 };
