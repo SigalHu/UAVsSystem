@@ -1,7 +1,7 @@
 #include <time.h>
 #include <string>
 #include "common.h"
-#include "DeviceVector.h"
+#include "DeviceVector.hpp"
 #include "CudaRandUtils.h"
 
 std::string CudaRandUtils::getClassName(){
@@ -55,8 +55,7 @@ void CudaRandUtils::createGenerator(curandGenerator_t &generator, curandRngType_
 		MacroUtils_FunctionName(curandSetPseudoRandomGeneratorSeed), getStatusStr(status));
 }
 
-template<class _Alloc>
-void CudaRandUtils::generateNormal(DeviceVector<float, _Alloc> &vector, float mean, float stddev){
+void CudaRandUtils::generateNormal(DeviceVector<float> &vector, float mean, float stddev){
 	curandGenerator_t generator;
 	createGenerator(generator, CURAND_RNG_PSEUDO_DEFAULT);
 
@@ -67,8 +66,7 @@ void CudaRandUtils::generateNormal(DeviceVector<float, _Alloc> &vector, float me
 		MacroUtils_FunctionName(curandGenerateNormal), getStatusStr(status));
 }
 
-template<class _Alloc>
-void CudaRandUtils::generateUniform(DeviceVector<float, _Alloc> &vector){
+void CudaRandUtils::generateUniform(DeviceVector<float> &vector){
 	curandGenerator_t generator;
 	createGenerator(generator, CURAND_RNG_PSEUDO_DEFAULT);
 

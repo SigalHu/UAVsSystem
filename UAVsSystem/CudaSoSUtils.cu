@@ -1,19 +1,20 @@
+#pragma once
 #define _USE_MATH_DEFINES
-#include "device_launch_parameters.h"
-#include "curand.h"
 #include <math.h>
 #include <time.h>
 #include "common.h"
-#include "cuda_definition.h"
-#include "cuda_api.h"
+#include "DeviceVector.hpp"
 #include "CudaSoSUtils.h"
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include "curand.h"
+#include "cuda_api.h"
 
 std::string CudaSoSUtils::getClassName(){
 	return MacroUtils_ClassName(CudaSoSUtils);
 }
 
-template<class _Alloc>
-void CudaSoSUtils::noiseGene(DeviceVector<float, _Alloc> &noiseI, DeviceVector<float, _Alloc> &noiseQ, const float &fs,
+void CudaSoSUtils::noiseGene(CudaLaunchParam cudaLaunchParam, DeviceVector<float> &noiseI, DeviceVector<float> &noiseQ, const float &fs,
 	const float &avgPower, const unsigned int &pathNum, const float &maxFd, const float &deltaOmega){
 	if (noiseI.empty() || noiseQ.empty())
 		throw SystemException(SystemCodeEnum::OUT_OF_RANGE, getClassName(), MacroUtils_CurFunctionName(), MacroUtils_VariableName(noiseI),
@@ -35,19 +36,22 @@ void CudaSoSUtils::noiseGene(DeviceVector<float, _Alloc> &noiseI, DeviceVector<f
 	float sumAmp = sqrtf(avgPower / pathNum);
 
 	size_t len = noiseI.size();
-	dim3 blockNum, threadNum(THREAD_NUM_PER_BLOCK);
-	if (pathNum <= THREAD_NUM_PER_BLOCK){
-		blockNum.y = len;
-	}
-	else{
-		blockNum.x = pathNum / THREAD_NUM_PER_BLOCK;
-		blockNum.y = len / blockNum.x + (len % blockNum.x) != 0;
-	}
-	if (blockNum.y > gridDim.y){
-		blockNum.y = gridDim.y;
-	}
+	//dim3 blockNum, threadNum(THREAD_NUM_PER_BLOCK);
+	//if (pathNum <= THREAD_NUM_PER_BLOCK){
+	//	blockNum.y = len;
+	//}
+	//else{
+	//	blockNum.x = pathNum / THREAD_NUM_PER_BLOCK;
+	//	blockNum.y = len / blockNum.x + (len % blockNum.x) != 0;
+	//}
+	//if (blockNum.y > gridDim.y){
+	//	blockNum.y = gridDim.y;
+	//}
 
-	cudaNoiseGeneWithSoS << <blockNum, threadNum, 2 * pathNum*sizeof(float) >> >(
+	dim3 blockNum = cudaLaunchParam.getBlockNum();
+	dim3 threadNum = cudaLaunchParam.getThreadNum();
+	size_t sharedMemSize = cudaLaunchParam.getSharedMemSize();/*2 * pathNum*sizeof(float)*/
+	cudaNoiseGeneWithSoS<<<blockNum, threadNum, sharedMemSize>>>(
 		raw_pointer_cast(noiseI.data()), raw_pointer_cast(noiseQ.data()),
 		len, pathNum, time(NULL), omegaAmp, deltaAlpha, deltaOmega, deltaT, sumAmp);
 
@@ -56,6 +60,8 @@ void CudaSoSUtils::noiseGene(DeviceVector<float, _Alloc> &noiseI, DeviceVector<f
 		throw SystemException(SystemCodeEnum::CUDA_CALL_ERROR, getClassName(), MacroUtils_CurFunctionName(),
 		MacroUtils_FunctionName(cudaNoiseGeneWithSoS), cudaGetErrorString(error));
 }
+
+
 //
 //template<class _Alloc>
 //void CudaSoSUtils::noiseOmegaCulc(const dim3 &blockNum, const dim3 &threadNum,

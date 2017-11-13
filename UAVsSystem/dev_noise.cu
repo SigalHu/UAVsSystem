@@ -26,7 +26,7 @@ __global__ void cudaNoiseGeneWithSoS(float *dev_cos_value, float *dev_sin_value,
 		sin_value[x] = sinf(omega_n_Q * delta_t*y + 2 * CR_CUDART_PI*phi_n_Q);
 		__syncthreads();
 
-		for (path_num >> 1; path_num > 0; path_num >> 1){
+		for (path_num >>= 1; path_num > 0; path_num >>= 1){
 			if (x < path_num){
 				cos_value[x] += cos_value[x + path_num];
 				sin_value[x] += sin_value[x + path_num];

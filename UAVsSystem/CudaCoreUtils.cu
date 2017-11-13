@@ -2,8 +2,41 @@
 #include "cuda_runtime.h"
 #include "CudaCoreUtils.h"
 
+const dim3 CudaCoreUtils::DEFAULT_GRID_DIM(65535, 65535, 65535);
+std::map<unsigned int, const dim3> CudaCoreUtils::gridDimMap = CudaCoreUtils::getGridDimList();
+
 std::string CudaCoreUtils::getClassName(){
 	return MacroUtils_ClassName(CudaCoreUtils);
+}
+
+std::map<unsigned int, const dim3> CudaCoreUtils::getGridDimList(){
+	int count = 0;
+	cudaDeviceProp prop;
+	std::map<unsigned int, const dim3> map;
+
+	cudaError_t error = cudaGetDeviceCount(&count);
+	if (error != cudaSuccess)
+		throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
+		getClassName(), MacroUtils_CurFunctionName(),
+		MacroUtils_FunctionName(cudaGetDeviceCount), cudaGetErrorString(error));
+
+	for (unsigned int ii = 0; ii < count; ++ii){
+		if (cudaGetDeviceProperties(&prop, ii) != cudaSuccess)
+			throw SystemException(SystemCodeEnum::CUDA_RUNTIME_ERROR,
+			getClassName(), MacroUtils_CurFunctionName(),
+			MacroUtils_FunctionName(cudaGetDeviceProperties), cudaGetErrorString(error));
+		else
+			map.emplace(ii, dim3(prop.maxGridSize[0], prop.maxGridSize[1], prop.maxGridSize[2]));
+	}
+	return map;
+}
+
+const dim3 CudaCoreUtils::getGridDim(const unsigned int &deviceId){
+	std::map<unsigned int, const dim3>::iterator iter = gridDimMap.find(deviceId);
+	if (iter == gridDimMap.end()){
+		return DEFAULT_GRID_DIM;
+	}
+	return iter->second;
 }
 
 void CudaCoreUtils::setDevice(int device){

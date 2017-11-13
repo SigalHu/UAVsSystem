@@ -1,9 +1,7 @@
 #pragma once
-#include "cuda_runtime.h"
 #include "CudaUtils.h"
-
-template<class _T, class _Alloc>
-class DeviceVector;
+#include "DeviceVector.h"
+#include "CudaLaunchParam.h"
 
 class CudaSoSUtils :protected CudaUtils{
 private:
@@ -11,8 +9,7 @@ private:
 private:
 	static std::string getClassName();
 public:
-	template<class _Alloc>
-	static void noiseGene(DeviceVector<float, _Alloc> &noiseI, DeviceVector<float, _Alloc> &noiseQ, const float &fs = 1000000,
+	static void noiseGene(CudaLaunchParam cudaLaunchParam, DeviceVector<float> &noiseI, DeviceVector<float> &noiseQ, const float &fs = 1000000,
 		const float &avgPower = 1, const unsigned int &pathNum = 32, const float &maxFd = 50, const float &deltaOmega = 0);
 
 	//template<class _Alloc>

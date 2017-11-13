@@ -83,7 +83,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>cudart.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>curand.lib;cudart.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>echo copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"
@@ -167,6 +167,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClCompile Include="CudaAsyncService.cpp" />
     <ClCompile Include="CudaAsyncUtils.cu" />
     <ClCompile Include="CudaCommonService.cpp" />
+    <ClCompile Include="CudaLaunchParam.cpp" />
     <ClCompile Include="CudaNoiseService.cpp" />
     <ClCompile Include="CudaService.cpp" />
     <ClCompile Include="CudaSoSService.cpp" />
@@ -188,10 +189,12 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="CudaAsyncService.h" />
     <ClInclude Include="CudaAsyncUtils.h" />
     <ClInclude Include="CudaCommonService.h" />
+    <ClInclude Include="CudaLaunchParam.h" />
     <ClInclude Include="CudaNoiseService.h" />
     <ClInclude Include="CudaService.h" />
     <ClInclude Include="CudaSoSService.h" />
     <ClInclude Include="cuda_definition.h" />
+    <ClInclude Include="cuda_param.h" />
     <ClInclude Include="cuda_task.h" />
     <ClInclude Include="cuda_api.h" />
     <ClInclude Include="ComplexArray.h" />

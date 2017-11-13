@@ -125,6 +125,12 @@
     <ClInclude Include="CudaSoSService.h">
       <Filter>service\cuda</Filter>
     </ClInclude>
+    <ClInclude Include="cuda_param.h">
+      <Filter>cuda\param</Filter>
+    </ClInclude>
+    <ClInclude Include="CudaLaunchParam.h">
+      <Filter>cuda\param</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="service">
@@ -159,6 +165,9 @@
     </Filter>
     <Filter Include="service\cuda">
       <UniqueIdentifier>{a9026802-a5cd-46b9-a4d5-588fa93db128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cuda\param">
+      <UniqueIdentifier>{39c10f1e-6bcd-458e-a94e-6aa1c9a187ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="CudaSoSService.cpp">
       <Filter>service\cuda</Filter>
+    </ClCompile>
+    <ClCompile Include="CudaLaunchParam.cpp">
+      <Filter>cuda\param</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
